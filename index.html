@@ -1,1 +1,767 @@
-Hello World
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shuan-Lin (Sam) Chen - Engineering Portfolio</title>
+    <link rel="stylesheet" href="pico-main/css/pico.classless.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Color Palette */
+            --primary-yellow: #f0ba20;
+            --primary-gold: #c9a016;
+            --primary-amber: #f5d650;
+            --primary-orange: #e6c24e;
+            --primary-accent: #988114;
+            
+            --neutral-background: #0F0F0F;
+            --neutral-card-bg: #1A1A1A;
+            --neutral-border-light: #2A2A2A;
+            --neutral-border-dark: #1F1F1F;
+            --neutral-text-primary: #FFFFFF;
+            --neutral-text-secondary: #A0A0A0;
+            --neutral-text-tertiary: #6B7280;
+            
+            /* Gradients */
+            --gradient-primary-hero: linear-gradient(135deg, #f0ba20 0%, #c9a016 25%, #f5d650 50%, #e6c24e 75%, #988114 100%);
+            --gradient-card-accent: linear-gradient(45deg, #f0ba20 0%, #c9a016 100%);
+            
+            /* Typography */
+            --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-code: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+            
+            /* Spacing */
+            --spacing-xs: 4px;
+            --spacing-sm: 8px;
+            --spacing-md: 16px;
+            --spacing-lg: 24px;
+            --spacing-xl: 32px;
+            --spacing-2xl: 48px;
+            --spacing-3xl: 64px;
+            
+            /* Border Radius */
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --radius-xl: 16px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            background-color: var(--neutral-background);
+            color: var(--neutral-text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(15, 15, 15, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: var(--spacing-md) var(--spacing-lg);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            color: var(--neutral-text-primary);
+            font-size: 20px;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .header-logo img {
+            width: 32px;
+            height: 32px;
+            border-radius: var(--radius-md);
+        }
+
+        /* Navigation */
+        .nav {
+            display: flex;
+            gap: var(--spacing-lg);
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--neutral-text-secondary);
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-radius: var(--radius-md);
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .nav-link:hover {
+            color: var(--neutral-text-primary);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-link.active {
+            color: var(--neutral-text-primary);
+            background: rgba(240, 186, 32, 0.1);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 80px;
+            min-height: calc(100vh - 80px);
+        }
+
+        /* Page Container */
+        .page {
+            display: none;
+            padding: var(--spacing-2xl) var(--spacing-lg);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: var(--gradient-primary-hero);
+            padding: var(--spacing-3xl) var(--spacing-lg);
+            border-radius: var(--radius-xl);
+            text-align: center;
+            margin-bottom: var(--spacing-3xl);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-title {
+            color: var(--neutral-text-primary);
+            font-size: 72px;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: var(--spacing-lg);
+            letter-spacing: -0.02em;
+        }
+
+        .hero-subtitle {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 20px;
+            font-weight: 400;
+            line-height: 1.5;
+            margin-bottom: var(--spacing-xl);
+        }
+
+        /* Cards */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-xl);
+            margin-bottom: var(--spacing-3xl);
+        }
+
+        .card {
+            background: var(--neutral-card-bg);
+            border: 1px solid var(--neutral-border-light);
+            border-radius: var(--radius-xl);
+            padding: var(--spacing-lg);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+            transition: all 0.2s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-card-accent);
+            border-radius: 2px 2px 0 0;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(240, 186, 32, 0.3);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: var(--radius-lg);
+            margin-bottom: var(--spacing-md);
+            transition: all 0.2s ease;
+        }
+
+        .card:hover .card-image {
+            transform: scale(1.05);
+        }
+
+        .card:active .card-image {
+            opacity: 0.7;
+        }
+
+        .card-title {
+            color: var(--neutral-text-primary);
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
+            transition: color 0.2s ease;
+        }
+
+        .card:hover .card-title {
+            color: var(--primary-yellow);
+        }
+
+        .card:active .card-title {
+            color: var(--primary-gold);
+        }
+
+        .card-description {
+            color: var(--neutral-text-secondary);
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1.5;
+            transition: color 0.2s ease;
+        }
+
+        .card:hover .card-description {
+            color: var(--neutral-text-primary);
+        }
+
+        /* About Page */
+        .about-section {
+            margin-bottom: var(--spacing-3xl);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-2xl);
+            align-items: start;
+            margin-bottom: var(--spacing-3xl);
+        }
+
+        .about-text {
+            color: var(--neutral-text-secondary);
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .about-image {
+            width: 100%;
+            max-width: 400px;
+            border-radius: var(--radius-xl);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .section-title {
+            color: var(--neutral-text-primary);
+            font-size: 36px;
+            font-weight: 600;
+            line-height: 1.3;
+            margin-bottom: var(--spacing-xl);
+        }
+
+        /* Content Pages */
+        .content-section {
+            margin-bottom: var(--spacing-3xl);
+        }
+
+        .content-text {
+            color: var(--neutral-text-secondary);
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: var(--spacing-lg);
+            transition: color 0.2s ease;
+        }
+
+        .content-text:hover {
+            color: var(--neutral-text-primary);
+        }
+
+        .content-text:active {
+            color: var(--primary-yellow);
+        }
+
+        .content-image {
+            width: 100%;
+            max-width: 600px;
+            border-radius: var(--radius-lg);
+            margin: var(--spacing-lg) 0;
+            transition: all 0.2s ease;
+        }
+
+        .content-image:hover {
+            transform: scale(1.02);
+        }
+
+        .content-image:active {
+            opacity: 0.7;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            border-radius: var(--radius-md);
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--gradient-card-accent);
+            color: var(--neutral-text-primary);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 20px rgba(240, 186, 32, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--neutral-text-secondary);
+            border: 1px solid var(--neutral-border-light);
+        }
+
+        .btn-secondary:hover {
+            color: var(--neutral-text-primary);
+            border: 1px solid rgba(240, 186, 32, 0.5);
+            background: rgba(240, 186, 32, 0.1);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 48px;
+            }
+            
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--neutral-text-primary);
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 80px;
+            left: 0;
+            right: 0;
+            background: rgba(15, 15, 15, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: var(--spacing-lg);
+            display: none;
+            flex-direction: column;
+            gap: var(--spacing-md);
+        }
+
+        .mobile-menu.active {
+            display: flex;
+        }
+
+        /* Loading Animation */
+        .loading {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        /* Focus States */
+        .nav-link:focus,
+        .card:focus,
+        .btn:focus {
+            outline: 2px solid var(--primary-yellow);
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <a href="#" class="header-logo" onclick="showPage('about')">
+            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iOCIgZmlsbD0idXJsKCNncmFkaWVudDApIi8+CjxwYXRoIGQ9Ik04IDEySDI0TTggMTZIMjBNOCAyMEgyNCIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KPGRlZnM+CjxsaW5lYXJHcmFkaWVudCBpZD0iZ3JhZGllbnQwIiB4MT0iMCIgeTE9IjAiIHgyPSIzMiIgeTI9IjMyIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+CjxzdG9wIHN0b3AtY29sb3I9IiNmMGJhMjAiLz4KPHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjYzlhMDE2Ii8+CjwvbGluZWFyR3JhZGllbnQ+CjwvZGVmcz4KPC9zdmc+" alt="Logo">
+            Shuan-Lin (Sam) Chen
+        </a>
+        
+        <nav class="nav">
+            <a href="#" class="nav-link active" onclick="showPage('about')">About</a>
+            <a href="#" class="nav-link" onclick="showPage('trapped')">Trapped!…?</a>
+            <a href="#" class="nav-link" onclick="showPage('making')">Making and Tinkering</a>
+            <a href="#" class="nav-link" onclick="showPage('escape')">CAN YOU ESCAPE?</a>
+            <a href="#" class="nav-link" onclick="showPage('robotics')">Robotics Funsies</a>
+        </nav>
+        
+        <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#" class="nav-link active" onclick="showPage('about'); toggleMobileMenu()">About</a>
+        <a href="#" class="nav-link" onclick="showPage('trapped'); toggleMobileMenu()">Trapped!…?</a>
+        <a href="#" class="nav-link" onclick="showPage('making'); toggleMobileMenu()">Making and Tinkering</a>
+        <a href="#" class="nav-link" onclick="showPage('escape'); toggleMobileMenu()">CAN YOU ESCAPE?</a>
+        <a href="#" class="nav-link" onclick="showPage('robotics'); toggleMobileMenu()">Robotics Funsies</a>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- About Page -->
+        <div id="about" class="page active">
+            <div class="hero">
+                <div class="hero-content">
+                    <h1 class="hero-title">Shuan-Lin (Sam) Chen</h1>
+                    <p class="hero-subtitle">Engineering Student & Maker</p>
+                    <a href="#" class="btn btn-primary" onclick="showPage('about')">Learn More</a>
+                </div>
+            </div>
+
+            <div class="about-section">
+                <h2 class="section-title">About Me</h2>
+                <div class="about-grid">
+                    <div>
+                        <p class="about-text">
+                            Hi! I'm Shuan-Lin (Sam) Chen, an engineering student passionate about technology, 
+                            wildlife conservation, and bringing STEM education to underresourced communities. 
+                            I'm currently studying at Stanford University, where I combine my love for 
+                            engineering with my commitment to making a positive impact.
+                        </p>
+                        <p class="about-text">
+                            My interests span from wildlife camera trap research to robotics education, 
+                            from escape room design to hands-on making and tinkering projects. I believe 
+                            in the power of technology to solve real-world problems and inspire the next 
+                            generation of innovators.
+                        </p>
+                    </div>
+                    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDQwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iNDAwIiByeD0iMTYiIGZpbGw9IiMxQTFBMUEiLz4KPGNpcmNsZSBjeD0iMjAwIiBjeT0iMTUwIiByPSI2MCIgZmlsbD0iIzg2NUQ2QyIvPgo8cmVjdCB4PSIxMDAiIHk9IjI0MCIgd2lkdGg9IjIwMCIgaGVpZ2h0PSIxMDAiIHJ4PSIxNiIgZmlsbD0iIzg2NUQ2QyIvPgo8Y2lyY2xlIGN4PSIxNTAiIGN5PSIyOTAiIHI9IjE1IiBmaWxsPSIjMkEyQTIwIi8+CjxjaXJjbGUgY3g9IjI1MCIgY3k9IjI5MCIgcj0iMTUiIGZpbGw9IiMyQTJBMjAiLz4KPC9zdmc+" alt="Shuan-Lin (Sam) Chen" class="about-image">
+                </div>
+            </div>
+
+            <div class="card-grid">
+                <div class="card" onclick="showPage('trapped')">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDMwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiByeD0iMTIiIGZpbGw9IiMxQTFBMUEiLz4KPHJlY3QgeD0iNTAiIHk9IjUwIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjEwMCIgcng9IjgiIGZpbGw9IiM4QjVDRjYiLz4KPGNpcmNsZSBjeD0iNzUiIGN5PSIxMDAiIHI9IjEwIiBmaWxsPSIjM0I4MkY2Ii8+Cjx0ZXh0IHg9IjE1MCIgeT0iMTEwIiBmaWxsPSJ3aGl0ZSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE0Ij5DYW1lcmEgVHJhcDwvdGV4dD4KPC9zdmc+" alt="Camera Trap" class="card-image">
+                    <h3 class="card-title">Trapped!…?</h3>
+                    <p class="card-description">Documenting my research work on wildlife camera traps and conservation technology.</p>
+                </div>
+
+                <div class="card" onclick="showPage('making')">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDMwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiByeD0iMTIiIGZpbGw9IiMxQTFBMUEiLz4KPHBhdGggZD0iTTUwIDEwMEwyNTAgMTAwTTUwIDE1MEwyNTAgMTUwTTUwIDIwMEwyNTAgMjAwIiBzdHJva2U9IiMxMEI5ODEiIHN0cm9rZS13aWR0aD0iNCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CjxjaXJjbGUgY3g9IjEwMCIgY3k9IjEwMCIgcj0iMTUiIGZpbGw9IiNGNTlFMEIiLz4KPGNpcmNsZSBjeD0iMjAwIiBjeT0iMTUwIiByPSIxNSIgZmlsbD0iI0Y1OUUwQiIvPgo8Y2lyY2xlIGN4PSIxNTAiIGN5PSIyMDAiIHI9IjE1IiBmaWxsPSIjRjU5RTBCIi8+Cjwvc3ZnPg==" alt="Making Projects" class="card-image">
+                    <h3 class="card-title">Making and Tinkering</h3>
+                    <p class="card-description">Showcasing my hands-on projects and engineering experiments.</p>
+                </div>
+
+                <div class="card" onclick="showPage('escape')">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDMwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiByeD0iMTIiIGZpbGw9IiMxQTFBMUEiLz4KPHJlY3QgeD0iNTAiIHk9IjUwIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjEwMCIgcng9IjgiIGZpbGw9IiNFRjQ0NDQiLz4KPHBhdGggZD0iTTEwMCAxMDBMMTUwIDE1MEwxMDAgMjAwIiBzdHJva2U9IndoaXRlIiBzdHJva2Utd2lkdGg9IjQiLz4KPHBhdGggZD0iTTIwMCAxMDBMMTUwIDE1MEwyMDAgMjAwIiBzdHJva2U9IndoaXRlIiBzdHJva2Utd2lkdGg9IjQiLz4KPC9zdmc+" alt="Escape Room" class="card-image">
+                    <h3 class="card-title">CAN YOU ESCAPE?</h3>
+                    <p class="card-description">Presenting my work on an innovative escape room project.</p>
+                </div>
+
+                <div class="card" onclick="showPage('robotics')">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDMwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiByeD0iMTIiIGZpbGw9IiMxQTFBMUEiLz4KPGNpcmNsZSBjeD0iMTUwIiBjeT0iMTAwIiByPSI0MCIgZmlsbD0iIzM4MkY2Ii8+CjxjaXJjbGUgY3g9IjEzMCIgY3k9IjgwIiByPSI4IiBmaWxsPSIjRjU5RTBCIi8+CjxjaXJjbGUgY3g9IjE3MCIgY3k9IjgwIiByPSI4IiBmaWxsPSIjRjU5RTBCIi8+CjxyZWN0IHg9IjEyMCIgeT0iMTIwIiB3aWR0aD0iNjAiIGhlaWdodD0iNDAiIHJ4PSI4IiBmaWxsPSIjRjU5RTBCIi8+Cjwvc3ZnPg==" alt="Robotics" class="card-image">
+                    <h3 class="card-title">Robotics Funsies</h3>
+                    <p class="card-description">Documenting my contributions at Stanford Funbotics, bringing STEM to underresourced communities.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Trapped!…? Page -->
+        <div id="trapped" class="page">
+            <div class="hero">
+                <div class="hero-content">
+                    <h1 class="hero-title">Trapped!…?</h1>
+                    <p class="hero-subtitle">Wildlife Camera Trap Research</p>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2 class="section-title">Research Overview</h2>
+                <p class="content-text">
+                    My research focuses on developing and deploying wildlife camera traps to study animal behavior 
+                    and population dynamics in their natural habitats. This work combines computer vision, 
+                    machine learning, and conservation biology to create non-invasive monitoring systems.
+                </p>
+                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDYwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI2MDAiIGhlaWdodD0iNDAwIiByeD0iMTIiIGZpbGw9IiMxQTFBMUEiLz4KPHJlY3QgeD0iMTAwIiB5PSI1MCIgd2lkdGg9IjQwMCIgaGVpZ2h0PSIzMDAiIHJ4PSI4IiBmaWxsPSIjOEY5Q0Y2Ii8+CjxjaXJjbGUgY3g9IjE1MCIgY3k9IjEwMCIgcj0iMjAiIGZpbGw9IiMzQjgyRjYiLz4KPHJlY3QgeD0iMTMwIiB5PSI5MCIgd2lkdGg9IjQwIiBoZWlnaHQ9IjIwIiByeD0iNCIgZmlsbD0iIzJBMkEyMCIvPgo8Y2lyY2xlIGN4PSIzMDAiIGN5PSIyMDAiIHI9IjMwIiBmaWxsPSIjMTA5Qjk4MSIvPgo8Y2lyY2xlIGN4PSIzMDAiIGN5PSIyMDAiIHI9IjE1IiBmaWxsPSIjMkEyQTIwIi8+Cjwvc3ZnPg==" alt="Camera Trap Setup" class="content-image">
+            </div>
+
+            <div class="content-section">
+                <h2 class="section-title">Technical Implementation</h2>
+                <p class="content-text">
+                    The camera trap system uses motion sensors to trigger high-resolution photography, 
+                    capturing detailed images of wildlife without human interference. Advanced image 
+                    processing algorithms help identify species and track individual animals over time.
+                </p>
+                <p class="content-text">
+                    Data collection and analysis provide insights into animal migration patterns, 
+                    population densities, and behavioral changes in response to environmental factors.
+                </p>
+            </div>
+
+            <div class="content-section">
+                <h2 class="section-title">Conservation Impact</h2>
+                <p class="content-text">
+                    This research contributes to conservation efforts by providing accurate, 
+                    long-term data on wildlife populations. The non-invasive nature of camera traps 
+                    ensures minimal disturbance to natural habitats while gathering crucial information 
+                    for environmental protection initiatives.
+                </p>
+            </div>
+        </div>
+
+        <!-- Making and Tinkering Page -->
+        <div id="making" class="page">
+            <div class="hero">
+                <div class="hero-content">
+                    <h1 class="hero-title">Making and Tinkering</h1>
+                    <p class="hero-subtitle">Hands-on Engineering Projects</p>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2 class="section-title">Project Highlights</h2>
+                <p class="content-text">
+                    I love getting my hands dirty with practical engineering projects. From 3D printing 
+                    custom parts to building electronic circuits, these projects combine creativity with 
+                    technical problem-solving skills.
+                </p>
+                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDYwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI2MDAiIGhlaWdodD0iNDAwIiByeD0iMTIiIGZpbGw9IiMxQTFBMUEiLz4KPHJlY3QgeD0iMTAwIiB5PSIxMDAiIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiByeD0iOCIgZmlsbD0iIzEwOUI5ODEiLz4KPHJlY3QgeD0iMjUwIiB5PSIxMDAiIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiByeD0iOCIgZmlsbD0iI0Y1OUUwQiIvPgo8cmVjdCB4PSIxNzUiIHk9IjI1MCIgd2lkdGg9IjEwMCIgaGVpZ2h0PSIxMDAiIHJ4PSI4IiBmaWxsPSIjOEY5Q0Y2Ii8+CjxwYXRoIGQ9Ik0xNTAgMTUwTDI1MCAxNTBNMTc1IDIwMEwyNzUgMjAwIiBzdHJva2U9IiM2QjcyODAiIHN0cm9rZS13aWR0aD0iMiIvPgo8L3N2Zz4=" alt="Making Projects" class="content-image">
+            </div>
+
+            <div class="content-section">
+                <h2 class="section-title">Recent Projects</h2>
+                <p class="content-text">
+                    • Custom 3D-printed drone frame with integrated sensor systems<br>
+                    • Arduino-based environmental monitoring station<br>
+                    • Laser-cut wooden mechanical puzzles<br>
+                    • Raspberry Pi home automation system<br>
+                    • Solar-powered charging station for mobile devices
+                </p>
+            </div>
+
+            <div class="content-section">
+                <h2 class="section-title">Skills & Tools</h2>
+                <p class="content-text">
+                    My toolkit includes CAD software (Fusion 360, SolidWorks), 3D printing (FDM, SLA), 
+                    laser cutting, electronics prototyping, and various programming languages for embedded systems.
+                </p>
+            </div>
+        </div>
+
+        <!-- CAN YOU ESCAPE? Page -->
+        <div id="escape" class="page">
+            <div class="hero">
+                <div class="hero-content">
+                    <h1 class="hero-title">CAN YOU ESCAPE?</h1>
+                    <p class="hero-subtitle">Interactive Escape Room Project</p>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2 class="section-title">Project Overview</h2>
+                <p class="content-text">
+                    "CAN YOU ESCAPE?" is an innovative escape room experience that combines physical 
+                    puzzles with digital technology to create an immersive, interactive adventure. 
+                    Players must work together to solve complex challenges and escape within a time limit.
+                </p>
+                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDYwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI2MDAiIGhlaWdodD0iNDAwIiByeD0iMTIiIGZpbGw9IiMxQTFBMUEiLz4KPHJlY3QgeD0iMTAwIiB5PSI1MCIgd2lkdGg9IjQwMCIgaGVpZ2h0PSIzMDAiIHJ4PSI4IiBmaWxsPSIjRUY0NDQ0Ii8+CjxwYXRoIGQ9Ik0xNTAgMTAwTDIwMCAxNTBMMTUwIDIwMCIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLXdpZHRoPSI0Ii8+CjxwYXRoIGQ9Ik0yNTAgMTAwTDIwMCAxNTBMMjUwIDIwMCIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLXdpZHRoPSI0Ii8+CjxjaXJjbGUgY3g9IjIwMCIgY3k9IjE1MCIgcj0iMjAiIGZpbGw9IiNGNTlFMEIiLz4KPC9zdmc+" alt="Escape Room Design" class="content-image">
+            </div>
+
+            <div class="content-section">
+                <h2 class="section-title">Technical Features</h2>
+                <p class="content-text">
+                    The escape room incorporates motion sensors, RFID technology, LED lighting systems, 
+                    and custom software to create dynamic puzzle experiences. Each puzzle is designed 
+                    to test different skills: logic, teamwork, creativity, and technical knowledge.
+                </p>
+            </div>
+
+            <div class="content-section">
+                <h2 class="section-title">Design Philosophy</h2>
+                <p class="content-text">
+                    The project emphasizes accessibility and inclusivity, ensuring that puzzles can be 
+                    solved by people with diverse abilities and backgrounds. The experience promotes 
+                    critical thinking, collaboration, and problem-solving skills in an engaging format.
+                </p>
+            </div>
+        </div>
+
+        <!-- Robotics Funsies Page -->
+        <div id="robotics" class="page">
+            <div class="hero">
+                <div class="hero-content">
+                    <h1 class="hero-title">Robotics Funsies</h1>
+                    <p class="hero-subtitle">Stanford Funbotics Contributions</p>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <h2 class="section-title">About Stanford Funbotics</h2>
+                <p class="content-text">
+                    Stanford Funbotics is a student-run organization dedicated to bringing STEM education 
+                    to underresourced communities. Through hands-on robotics workshops and mentorship 
+                    programs, we inspire the next generation of engineers and innovators.
+                </p>
+                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAwIiBoZWlnaHQ9IjQwMCIgdmlld0JveD0iMCAwIDYwMCA0MDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI2MDAiIGhlaWdodD0iNDAwIiByeD0iMTIiIGZpbGw9IiMxQTFBMUEiLz4KPGNpcmNsZSBjeD0iMzAwIiBjeT0iMjAwIiByPSI4MCIgZmlsbD0iIzM4MkY2Ii8+CjxjaXJjbGUgY3g9IjI2MCIgY3k9IjE2MCIgcj0iMTYiIGZpbGw9IiNGNTlFMEIiLz4KPGNpcmNsZSBjeD0iMzQwIiBjeT0iMTYwIiByPSIxNiIgZmlsbD0iI0Y1OUUwQiIvPgo8cmVjdCB4PSIyNjAiIHk9IjI0MCIgd2lkdGg9IjgwIiBoZWlnaHQ9IjQwIiByeD0iOCIgZmlsbD0iI0Y1OUUwQiIvPgo8Y2lyY2xlIGN4PSIyMDAiIGN5PSIzMDAiIHI9IjIwIiBmaWxsPSIjMTA5Qjk4MSIvPgo8Y2lyY2xlIGN4PSI0MDAiIGN5PSIzMDAiIHI9IjIwIiBmaWxsPSIjMTA5Qjk4MSIvPgo8L3N2Zz4=" alt="Robotics Workshop" class="content-image">
+            </div>
+
+            <div class="content-section">
+                <h2 class="section-title">My Role</h2>
+                <p class="content-text">
+                    As a volunteer with Stanford Funbotics, I design and lead robotics workshops for 
+                    students in underresourced schools. My responsibilities include curriculum development, 
+                    hands-on instruction, and mentoring students as they build and program their own robots.
+                </p>
+            </div>
+
+            <div class="content-section">
+                <h2 class="section-title">Impact</h2>
+                <p class="content-text">
+                    Through these workshops, students gain practical experience with robotics, programming, 
+                    and engineering concepts. Many participants discover a passion for STEM fields and 
+                    develop confidence in their technical abilities. The program has reached hundreds of 
+                    students across multiple schools in the Bay Area.
+                </p>
+            </div>
+
+            <div class="content-section">
+                <h2 class="section-title">Workshop Topics</h2>
+                <p class="content-text">
+                    • Basic robotics concepts and components<br>
+                    • Programming fundamentals using block-based coding<br>
+                    • Sensor integration and autonomous navigation<br>
+                    • Problem-solving through iterative design<br>
+                    • Team collaboration and project management
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Navigation functionality
+        function showPage(pageId) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Update navigation links
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => link.classList.remove('active'));
+            
+            // Find and activate the corresponding nav link
+            const activeLink = Array.from(navLinks).find(link => 
+                link.getAttribute('onclick') && link.getAttribute('onclick').includes(pageId)
+            );
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
+        }
+
+        // Mobile menu functionality
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('active');
+        }
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            
+            if (!mobileMenu.contains(event.target) && !mobileMenuBtn.contains(event.target)) {
+                mobileMenu.classList.remove('active');
+            }
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Add loading states for interactive elements
+        document.querySelectorAll('.card, .btn').forEach(element => {
+            element.addEventListener('click', function() {
+                this.classList.add('loading');
+                setTimeout(() => {
+                    this.classList.remove('loading');
+                }, 200);
+            });
+        });
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Show about page by default
+            showPage('about');
+        });
+    </script>
+</body>
+</html> 
