@@ -1,7 +1,7 @@
 
-  # Minimalist Portfolio Website
+  # ShuanLinChenPortfolio
 
-  This is a code bundle for Minimalist Portfolio Website. The original project is available at https://www.figma.com/design/y8jJjFR4MmiZQ8JBgNkOiP/Minimalist-Portfolio-Website.
+  This is a code bundle for ShuanLinChenPortfolio. The original project is available at https://www.figma.com/design/y8jJjFR4MmiZQ8JBgNkOiP/ShuanLinChenPortfolio.
 
   ## Running the code
 

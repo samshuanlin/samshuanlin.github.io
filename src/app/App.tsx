@@ -1,5 +1,11 @@
 import { useState } from "react";
-import { Mail, Github, Linkedin, ArrowLeft, ArrowUpRight } from "lucide-react";
+import {
+  Mail,
+  Github,
+  Linkedin,
+  ArrowLeft,
+  ArrowUpRight,
+} from "lucide-react";
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
@@ -23,7 +29,9 @@ function HeroBackground() {
         Math.sin(t * 2.1) * 38 +
         Math.sin(t * 4.9) * 14 +
         Math.sin(t * 11.3) * 5);
-    pts.push(`${x.toFixed(1)},${Math.max(10, Math.min(H - 10, y)).toFixed(1)}`);
+    pts.push(
+      `${x.toFixed(1)},${Math.max(10, Math.min(H - 10, y)).toFixed(1)}`,
+    );
   }
   const sine = `M ${pts.join(" L ")}`;
 
@@ -55,33 +63,47 @@ function HeroBackground() {
       {Array.from({ length: gridRows + 1 }).map((_, i) => (
         <line
           key={`h${i}`}
-          x1="0" y1={(H / gridRows) * i}
-          x2={W} y2={(H / gridRows) * i}
-          stroke="rgba(255,255,255,0.04)" strokeWidth="1"
+          x1="0"
+          y1={(H / gridRows) * i}
+          x2={W}
+          y2={(H / gridRows) * i}
+          stroke="rgba(255,255,255,0.04)"
+          strokeWidth="1"
         />
       ))}
       {Array.from({ length: gridCols + 1 }).map((_, i) => (
         <line
           key={`v${i}`}
-          x1={(W / gridCols) * i} y1="0"
-          x2={(W / gridCols) * i} y2={H}
-          stroke="rgba(255,255,255,0.04)" strokeWidth="1"
+          x1={(W / gridCols) * i}
+          y1="0"
+          x2={(W / gridCols) * i}
+          y2={H}
+          stroke="rgba(255,255,255,0.04)"
+          strokeWidth="1"
         />
       ))}
       {/* Center axis */}
       <line
-        x1="0" y1={H * 0.52} x2={W} y2={H * 0.52}
-        stroke="rgba(255,255,255,0.07)" strokeWidth="1"
+        x1="0"
+        y1={H * 0.52}
+        x2={W}
+        y2={H * 0.52}
+        stroke="rgba(255,255,255,0.07)"
+        strokeWidth="1"
       />
       {/* Square wave */}
       <path
-        d={square} fill="none"
-        stroke="rgba(77,166,255,0.09)" strokeWidth="1.5"
+        d={square}
+        fill="none"
+        stroke="rgba(77,166,255,0.09)"
+        strokeWidth="1.5"
       />
       {/* Main sine trace */}
       <path
-        d={sine} fill="none"
-        stroke="rgba(77,166,255,0.14)" strokeWidth="2"
+        d={sine}
+        fill="none"
+        stroke="rgba(77,166,255,0.14)"
+        strokeWidth="2"
         strokeLinecap="round"
         style={{
           filter: "drop-shadow(0 0 8px rgba(77,166,255,0.08))",
@@ -95,15 +117,27 @@ function HeroBackground() {
 
 // ─── Section header ───────────────────────────────────────────────────────────
 
-function SectionHeader({ num, title }: { num: string; title: string }) {
+function SectionHeader({
+  num,
+  title,
+}: {
+  num: string;
+  title: string;
+}) {
   return (
     <div className="flex items-center gap-4 mb-12">
-      <span className="font-mono text-xs" style={{ color: ACCENT_DIM }}>
+      <span
+        className="font-mono text-xs"
+        style={{ color: ACCENT_DIM }}
+      >
         {num}
       </span>
       <h2
         className="text-3xl font-bold tracking-tight uppercase"
-        style={{ fontFamily: "Rajdhani, sans-serif", letterSpacing: "0.04em" }}
+        style={{
+          fontFamily: "Rajdhani, sans-serif",
+          letterSpacing: "0.04em",
+        }}
       >
         {title}
       </h2>
@@ -123,6 +157,7 @@ interface Project {
   tags: string[];
   featured: boolean;
   specs: { label: string; value: string }[];
+  link?: { label: string; url: string };
 }
 
 const projects: Project[] = [
@@ -131,18 +166,22 @@ const projects: Project[] = [
     title: "Stanford Camera Trap Network",
     org: "Stanford Smart Sensing Systems Lab (PI: Zerina Kapetanovic)",
     summary:
-      "Hardware and firmware development of remote field sensor for ultra-low-power consumption for semi-permanent wireless operation.",
+      "Hardware and firmware development of remote field sensor for ultra-low-power consumption and semi-permanent wireless operation.",
     detail:
-      "Performed systematic on-wafer characterization of GaN HEMT devices targeting 5G base-station RF front-ends. Used a VNA to collect two-port S-parameters from 100 MHz to 18 GHz across bias sweep conditions. Extracted small-signal equivalent circuit models (Cgs, Cgd, gm, Rds) via optimization against measured data, then built and validated SPICE netlists. Also performed pulsed I-V measurements to characterize trapping effects and contributed to a reliability test protocol that reduced characterization time by ~30 %.",
-    tags: ["RF Design", "SPICE", "GaN", "VNA", "S-Parameters", "Device Modeling"],
+      "Camera traps are used by field ecologists to collect data from remote wilderness or biological reserves to better understand animal behavior. However, image processing, classification, and even data retrieval remain highly manual tasks that limit research throughput.\n\nThrough this project, we aim to improve ecologists' workflow by providing:\n\n• Onboard intelligence for data classification using an inverted vector table for fast query and minimal communication overhead\n• Wireless communication via LoRa in a mesh network to reduce manual retrieval frequency\n• Low-power operation for system longevity and compatibility with commercial batteries\n\nWe are currently designing a minimally-sized PCB based on the STM32N657, with MIPI-CSI, USB, and SDIO high-speed communication lines for the sensing and storage modalities we need.",
+    tags: [
+      "Embedded C",
+      "PCB Design",
+      "High-speed design",
+      "LoRa",
+    ],
     featured: true,
     specs: [
-      { label: "Technology", value: "GaN-on-SiC HEMT" },
-      { label: "Frequency", value: "100 MHz – 18 GHz" },
-      { label: "Instrument", value: "Keysight VNA" },
-      { label: "Model", value: "Small-signal EC" },
-      { label: "Application", value: "5G RF PA" },
-      { label: "Status", value: "Published internally" },
+      { label: "Started", value: "Apr 2025" },
+      {
+        label: "Status",
+        value: "Prototype complete, PCB in development",
+      },
     ],
   },
   {
@@ -152,16 +191,19 @@ const projects: Project[] = [
     summary:
       "In-person on-campus escape room designed and crafted by team of engineers, theater artists, and creative designers.",
     detail:
-      "Designed from schematic to layout a 4-layer PCB handling attitude determination (IMU, magnetometer, sun sensors), redundant inter-module communication (I²C, SPI, CAN bus), and a fault-tolerant power management unit for a 1U CubeSat mission. Wrote embedded C firmware for sensor polling, health telemetry, and watchdog recovery. Led integration testing with the communications and power subsystem teams and authored the avionics ICD. The board successfully passed thermal vacuum and vibration qualification testing.",
-    tags: ["PCB Design", "KiCad", "Embedded C", "CubeSat", "CAN Bus", "Power Management"],
-    featured: true,
+      "As an escape room enthusiast, I always wondered what it would take to build one from scratch. That opportunity arrived with Stanford Escape.\n\nThroughout the 2025–2026 academic year, I led a multidisciplinary team of 15–20 students to design and construct an immersive, The Matrix-themed escape room. Utilizing Stanford Electrical Engineering’s Lab64 makerspace, we engineered interactive hardware puzzles from the ground up. Simultaneously, we collaborated with the Theater and Performance Studies department to construct custom walls, successfully transforming a restricted physical environment into a seamless two-room experience.\n\nThis project was not only a personal milestone but also an incredible leadership experience, allowing me to bridge the gap between technical engineering and creative, outside-the-box storytelling.",
+    tags: [
+      "Leadership",
+      "Circuit design",
+      "Embedded Python",
+      "Mechanical prototyping",
+    ],
+    featured: false,
+    link: { label: "View our Website", url: "https://escaperoom.stanford.edu/photos" },
     specs: [
-      { label: "Layers", value: "4-layer PCB" },
-      { label: "MCU", value: "STM32H7" },
-      { label: "Interfaces", value: "I²C, SPI, CAN" },
-      { label: "Mass budget", value: "< 20 g" },
-      { label: "Supply", value: "3.3 V / 5 V" },
-      { label: "Status", value: "Qualification passed" },
+      { label: "Started", value: "Aug 2025" },
+      { label: "Status", value: "Finished" },
+      { label: "Ended", value: "May 2026" },
     ],
   },
   {
@@ -169,37 +211,39 @@ const projects: Project[] = [
     title: "Digital RGB Clock PCB",
     org: "EE 156/256: Board Level Design",
     summary:
-      "Real-time PID firmware for a precision metal-ink extrusion platform, achieving sub-50 µm trace width consistency.",
+      "PCB design for a 7-segment 4-digit clock display.",
     detail:
-      "Developed closed-loop control firmware for a custom metal-ink extrusion 3D printer designed for printed electronics research. Implemented a cascaded PID controller on an ARM Cortex-M4 managing nozzle pressure, substrate temperature, and XYZ stage feedrate simultaneously. Python host software handled G-code parsing, real-time telemetry visualization, and automated calibration routines that reduced setup time from ~45 minutes to under 5. Achieved sub-50 µm trace width at 10 mm/s print speed — a 3× improvement over the previous open-loop baseline.",
-    tags: ["PID Control", "Python", "ARM Cortex-M4", "Real-Time", "C++", "3D Printing"],
+      "In this end-to-end PCB project, I designed a digital clock combining a 7-segment 4-digit display to show the time and temperature/lux sensors to allow for dynamic color shifting and dimming/brightening of the display. The project incorporates I2C, SPI, UART and SWD communication interfaces to support all the functionalities.",
+    tags: [
+      "KiCad",
+      "Python",
+      "Circuit design",
+    ],
     featured: false,
     specs: [
-      { label: "MCU", value: "ARM Cortex-M4" },
-      { label: "Control loop", value: "Cascaded PID" },
-      { label: "Trace width", value: "< 50 µm" },
-      { label: "Print speed", value: "10 mm/s" },
-      { label: "Host SW", value: "Python" },
-      { label: "Status", value: "Active research" },
+      { label: "Started", value: "Sept 2025" },
+      { label: "Status", value: "Finished" },
+      { label: "Ended", value: "Dec 2025"},
     ],
   },
   {
     id: "04",
-    title: "Autonomous Maze Robot",
-    org: "Stanford Funbotics",
+    title: "Through-Wall Sensing with mmWave Radar",
+    org: "Stanford EE 119/219: 3D+ Imaging Sensors",
     summary:
-      "Autonomous navigation robot with ultrasonic + IR sensing and a hierarchical state machine on STM32. First-place finish in the club championship.",
+      "FMCW radar detection and tracking of human movement behind walls.",
     detail:
-      "Designed and built a fully autonomous maze-solving robot from scratch in eight weeks. The sensing stack combined five ultrasonic rangefinders with two IR line sensors to construct a local occupancy map updated at 50 Hz. A hierarchical state machine (exploration → mapping → exploitation) running on STM32F4 handled navigation logic, with a modified flood-fill algorithm for optimal path planning. Custom motor driver boards used H-bridge ICs with PWM feedrate control. The robot solved a 2 m × 2 m maze in under 28 seconds and took first place at the annual Funbotics championship.",
-    tags: ["STM32", "C++", "State Machine", "Sensor Fusion", "Motor Control", "Robotics"],
+      "In this project, we leveraged a TI IWR6843ISK 60GHz FMCW radar to achieve through-wall sensing of human movement. To optimize the system for our specific environment, we systematically configured the FMCW chirp parameters—fine-tuning the maximum unambiguous range, velocity limits, and their respective resolutions. Using the resulting Range-Doppler plots, we developed a target identification algorithm to accurately detect human motion across successive frames.",
+    tags: [
+      "3D+ sensing",
+      "Radars",
+      "Image signal processing",
+    ],
     featured: false,
     specs: [
-      { label: "MCU", value: "STM32F4" },
-      { label: "Sensors", value: "5× ultrasonic, 2× IR" },
-      { label: "Algorithm", value: "Flood-fill" },
-      { label: "Loop rate", value: "50 Hz" },
-      { label: "Solve time", value: "< 28 s" },
-      { label: "Result", value: "1st place" },
+      { label: "Started", value: "Apr 2026" },
+      { label: "Status", value: "Finished" },
+      { label: "Ended", value: "June 2026" },
     ],
   },
 ];
@@ -208,32 +252,69 @@ const skillGroups = [
   {
     mono: "SIG_PROC",
     label: "Signal Processing",
-    skills: ["DSP", "FIR/IIR Filters", "Fourier Analysis", "FFT", "MATLAB", "Simulink", "Noise Analysis"],
+    skills: [
+      "DSP",
+      "FIR Filters",
+      "Fourier Analysis",
+      "FFT",
+      "Stochastic Signals",
+    ],
   },
   {
-    mono: "CTRL_SYS",
+    mono: "CTRL",
     label: "Control Systems",
-    skills: ["PID Control", "State-Space", "Root Locus", "Bode Analysis", "LabVIEW", "MATLAB/Simulink"],
+    skills: [
+      "Laplace/Z-domain Analysis",
+      "Stability Analysis",
+      "Bode Analysis",
+      "Feedback Systems",
+    ],
+  },
+  {
+    mono: "SENS_MOD",
+    label: "Sensing Modalities",
+    skills: [
+      "Radars",
+      "ToF Camera",
+      "Ultrasonic Sensors",
+      "IMU",
+      "Capacitive Touch Sensor/Array",
+      "EEG",
+    ],
   },
   {
     mono: "EMBED_SYS",
     label: "Embedded Systems",
-    skills: ["C / C++", "ARM Cortex-M", "FPGAs", "Verilog / VHDL", "STM32", "RTOS", "I2C / SPI / UART"],
+    skills: [
+      "C / C++",
+      "Python",
+      "FPGAs",
+      "Verilog",
+      "RTOS",
+      "I2C / SPI / UART",
+      "MIPI / SDIO / USB"
+    ],
   },
   {
     mono: "HW_DESIGN",
     label: "Hardware Design",
-    skills: ["PCB Layout", "KiCad", "Altium", "SPICE Simulation", "RF / Antenna", "GaN HEMTs", "VNA"],
+    skills: [
+      "KiCad",
+      "Altium",
+      "LTSPICE Simulation",
+      "Bench Equipment"
+    ],
   },
   {
     mono: "SW_TOOLS",
     label: "Software & Tools",
-    skills: ["Python", "C++", "Git", "Linux", "MATLAB", "LaTeX"],
-  },
-  {
-    mono: "MECH_INT",
-    label: "Mechatronics",
-    skills: ["Sensor Fusion", "Motor Control", "3D Printing", "Robotics", "Actuator Design"],
+    skills: [
+      "Python",
+      "C/C++",
+      "MATLAB",
+      "Linux",
+      "Git",
+    ],
   },
 ];
 
@@ -261,20 +342,34 @@ function ProjectPage({
       {/* Back nav */}
       <nav
         className="fixed top-0 left-0 right-0 z-50 border-b border-white/8"
-        style={{ background: "rgba(8,8,8,0.92)", backdropFilter: "blur(12px)" }}
+        style={{
+          background: "rgba(8,8,8,0.92)",
+          backdropFilter: "blur(12px)",
+        }}
       >
         <div className="max-w-5xl mx-auto px-6 h-14 flex items-center gap-4">
           <button
             onClick={onBack}
             className="flex items-center gap-2 font-mono text-xs transition-colors"
             style={{ color: "rgba(240,240,240,0.65)" }}
-            onMouseEnter={(e) => ((e.currentTarget as HTMLButtonElement).style.color = "#f0f0f0")}
-            onMouseLeave={(e) => ((e.currentTarget as HTMLButtonElement).style.color = "rgba(240,240,240,0.65)")}
+            onMouseEnter={(e) =>
+              ((
+                e.currentTarget as HTMLButtonElement
+              ).style.color = "#f0f0f0")
+            }
+            onMouseLeave={(e) =>
+              ((
+                e.currentTarget as HTMLButtonElement
+              ).style.color = "rgba(240,240,240,0.65)")
+            }
           >
             <ArrowLeft size={12} />
             BACK
           </button>
-          <span className="font-mono text-[10px]" style={{ color: "rgba(240,240,240,0.25)" }}>
+          <span
+            className="font-mono text-[10px]"
+            style={{ color: "rgba(240,240,240,0.25)" }}
+          >
             /
           </span>
           <span
@@ -283,10 +378,16 @@ function ProjectPage({
           >
             projects
           </span>
-          <span className="font-mono text-[10px]" style={{ color: "rgba(240,240,240,0.25)" }}>
+          <span
+            className="font-mono text-[10px]"
+            style={{ color: "rgba(240,240,240,0.25)" }}
+          >
             /
           </span>
-          <span className="font-mono text-[10px]" style={{ color: ACCENT_DIM }}>
+          <span
+            className="font-mono text-[10px]"
+            style={{ color: ACCENT_DIM }}
+          >
             {project.id}
           </span>
         </div>
@@ -303,7 +404,10 @@ function ProjectPage({
           </div>
           <h1
             className="text-5xl font-bold mb-4"
-            style={{ fontFamily: "Rajdhani, sans-serif", letterSpacing: "-0.01em" }}
+            style={{
+              fontFamily: "Rajdhani, sans-serif",
+              letterSpacing: "-0.01em",
+            }}
           >
             {project.title}
           </h1>
@@ -321,6 +425,41 @@ function ProjectPage({
               </span>
             ))}
           </div>
+          {project.link && (
+            <a
+              href={project.link.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 font-mono text-[11px] mt-5 px-4 py-2.5 border transition-all"
+              style={{
+                borderColor: `rgba(77,166,255,0.35)`,
+                color: ACCENT,
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLAnchorElement).style.borderColor = ACCENT;
+                (e.currentTarget as HTMLAnchorElement).style.background = "rgba(77,166,255,0.08)";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(77,166,255,0.35)";
+                (e.currentTarget as HTMLAnchorElement).style.background = "transparent";
+              }}
+            >
+              <ArrowUpRight size={12} />
+              {project.link.label}
+            </a>
+          )}
+        </div>
+
+        {/* Hero photo slot */}
+        <div
+          className="w-full mb-12 flex items-center justify-center border border-dashed"
+          style={{
+            height: "340px",
+            borderColor: "rgba(255,255,255,0.12)",
+            background: "rgba(255,255,255,0.02)",
+          }}
+        >
+          <img src="front.jpg" alt="Sam Chen" className="w-full h-full object-cover object-top" />
         </div>
 
         <div className="grid md:grid-cols-[1fr_260px] gap-12 items-start">
@@ -330,12 +469,74 @@ function ProjectPage({
               className="h-px mb-8"
               style={{ background: "rgba(255,255,255,0.08)" }}
             />
-            <p
-              className="text-base leading-relaxed"
-              style={{ color: "rgba(240,240,240,0.82)" }}
+            <div className="space-y-4">
+              {project.detail.split("\n\n").map((block, i) => {
+                const lines = block.split("\n");
+                const isList = lines.every((l) =>
+                  l.startsWith("•"),
+                );
+                if (isList) {
+                  return (
+                    <ul key={i} className="space-y-2">
+                      {lines.map((l, j) => (
+                        <li
+                          key={j}
+                          className="flex gap-2 text-base leading-relaxed"
+                          style={{
+                            color: "rgba(240,240,240,0.82)",
+                          }}
+                        >
+                          <span
+                            style={{
+                              color: ACCENT_DIM,
+                              flexShrink: 0,
+                            }}
+                          >
+                            —
+                          </span>
+                          <span>{l.replace(/^•\s*/, "")}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  );
+                }
+                return (
+                  <p
+                    key={i}
+                    className="text-base leading-relaxed"
+                    style={{ color: "rgba(240,240,240,0.82)" }}
+                  >
+                    {block}
+                  </p>
+                );
+              })}
+            </div>
+
+            {/* Secondary photo slot */}
+            <div
+              className="mt-8 flex items-center justify-center border border-dashed"
+              style={{
+                height: "220px",
+                borderColor: "rgba(255,255,255,0.1)",
+                background: "rgba(255,255,255,0.015)",
+              }}
             >
-              {project.detail}
-            </p>
+              {/* Replace this div with <img src="..." alt="..." className="w-full h-full object-cover" /> */}
+              <div className="text-center pointer-events-none select-none">
+                <div
+                  className="font-mono text-[11px] mb-1"
+                  style={{ color: "rgba(240,240,240,0.25)" }}
+                >
+                  PHOTO_02
+                </div>
+                <div
+                  className="font-mono text-[10px]"
+                  style={{ color: "rgba(240,240,240,0.18)" }}
+                >
+                  replace with image
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* Spec table */}
@@ -348,7 +549,10 @@ function ProjectPage({
             </div>
             <div className="space-y-0 divide-y divide-white/6">
               {project.specs.map(({ label, value }) => (
-                <div key={label} className="flex justify-between py-2.5 gap-4">
+                <div
+                  key={label}
+                  className="flex justify-between py-3 gap-4 last:border-b-0"
+                >
                   <span
                     className="font-mono text-[10px] uppercase tracking-wider flex-shrink-0"
                     style={{ color: "rgba(240,240,240,0.5)" }}
@@ -356,7 +560,7 @@ function ProjectPage({
                     {label}
                   </span>
                   <span
-                    className="font-mono text-[11px] text-right"
+                    className="font-mono text-[12px] text-right font-medium"
                     style={{ color: "rgba(240,240,240,0.85)" }}
                   >
                     {value}
@@ -375,7 +579,8 @@ function ProjectPage({
 
 export default function App() {
   const [activeSection, setActiveSection] = useState("home");
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [selectedProject, setSelectedProject] =
+    useState<Project | null>(null);
 
   // If a project is selected, render the detail page
   if (selectedProject) {
@@ -388,9 +593,16 @@ export default function App() {
   }
 
   const goto = (id: string) =>
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    document
+      .getElementById(id)
+      ?.scrollIntoView({ behavior: "smooth" });
 
-  const navLinks = ["home", "projects", "skills", "contact"] as const;
+  const navLinks = [
+    "home",
+    "projects",
+    "skills",
+    "contact",
+  ] as const;
 
   return (
     <div
@@ -415,11 +627,12 @@ export default function App() {
       {/* ── Nav ── */}
       <nav
         className="fixed top-0 left-0 right-0 z-50 border-b border-white/8"
-        style={{ background: "rgba(8,8,8,0.92)", backdropFilter: "blur(12px)" }}
+        style={{
+          background: "rgba(8,8,8,0.92)",
+          backdropFilter: "blur(12px)",
+        }}
       >
         <div className="max-w-6xl mx-auto px-6 h-14 flex items-center justify-between">
-          
-
           <div className="hidden md:flex items-center gap-7">
             {navLinks.map((id) => (
               <button
@@ -427,25 +640,36 @@ export default function App() {
                 onClick={() => goto(id)}
                 className="font-mono text-[11px] uppercase tracking-wider transition-colors"
                 style={{
-                  color: activeSection === id ? "#f0f0f0" : "rgba(240,240,240,0.6)",
+                  color:
+                    activeSection === id
+                      ? "#f0f0f0"
+                      : "rgba(240,240,240,0.6)",
                 }}
                 onMouseEnter={(e) =>
-                  ((e.currentTarget as HTMLButtonElement).style.color = "#f0f0f0")
+                  ((
+                    e.currentTarget as HTMLButtonElement
+                  ).style.color = "#f0f0f0")
                 }
                 onMouseLeave={(e) =>
-                  ((e.currentTarget as HTMLButtonElement).style.color =
-                    activeSection === id ? "#f0f0f0" : "rgba(240,240,240,0.6)")
+                  ((
+                    e.currentTarget as HTMLButtonElement
+                  ).style.color =
+                    activeSection === id
+                      ? "#f0f0f0"
+                      : "rgba(240,240,240,0.6)")
                 }
               >
                 {activeSection === id && (
-                  <span style={{ color: ACCENT, marginRight: 4 }}>//</span>
+                  <span
+                    style={{ color: ACCENT, marginRight: 4 }}
+                  >
+                    //
+                  </span>
                 )}
                 {id}
               </button>
             ))}
           </div>
-
-          
         </div>
       </nav>
 
@@ -459,22 +683,35 @@ export default function App() {
         {/* Fade gradient at bottom so content below reads clean */}
         <div
           className="absolute bottom-0 left-0 right-0 h-40 pointer-events-none"
-          style={{ background: "linear-gradient(to bottom, transparent, #080808)" }}
+          style={{
+            background:
+              "linear-gradient(to bottom, transparent, #080808)",
+          }}
         />
 
         <div className="max-w-6xl mx-auto px-6 w-full py-28 relative z-10">
-          <div className="max-w-2xl">
+          <div className="grid md:grid-cols-[1fr_auto] gap-12 items-stretch">
+          <div className="">
             <div
               className="font-mono text-[11px] mb-6 flex items-center gap-2"
               style={{ color: "rgba(240,240,240,0.65)" }}
             >
               <span style={{ color: ACCENT }}>{">"}</span>
               <span>Users</span>
-              <span style={{ color: "rgba(240,240,240,0.35)" }}>/</span>
+              <span style={{ color: "rgba(240,240,240,0.35)" }}>
+                /
+              </span>
               <span>Sam Chen</span>
-              <span style={{ color: "rgba(240,240,240,0.35)" }}>/</span>
+              <span style={{ color: "rgba(240,240,240,0.35)" }}>
+                /
+              </span>
               <span>portfolio</span>
-              <span className="cursor-blink" style={{ color: ACCENT }}>_</span>
+              <span
+                className="cursor-blink"
+                style={{ color: ACCENT }}
+              >
+                _
+              </span>
             </div>
 
             <h1
@@ -484,7 +721,14 @@ export default function App() {
                 letterSpacing: "-0.01em",
                 color: "#f0f0f0",
               }}
-            >Shuan-Lin<br /><span style={{ color: "rgba(240,240,240,0.6)" }}>(Sam) </span>Chen</h1>
+            >
+              Shuan-Lin
+              <br />
+              <span style={{ color: "rgba(240,240,240,0.6)" }}>
+                (Sam){" "}
+              </span>
+              Chen
+            </h1>
 
             <div className="flex items-center gap-3 mb-5">
               <div
@@ -499,41 +743,68 @@ export default function App() {
                   color: "rgba(240,240,240,0.75)",
                   fontSize: "0.9rem",
                 }}
-              >Electrical Engineer · embedded engineer</p>
+              >
+                Electrical Engineer · embedded engineer
+              </p>
             </div>
 
             <p
               className="text-sm leading-relaxed mb-7 max-w-lg"
               style={{ color: "rgba(240,240,240,0.75)" }}
-            >Stanford M.S. and B.S. EE student focused on signal processing, control systems, and embedded hardware. Motivated by building systems that bridge the physical and digital — from life-sized parts to the firmware layer.</p>
+            >
+              Stanford M.S. and B.S. EE student focused on
+              signal processing, control systems, and embedded
+              hardware. Motivated by building systems that
+              bridge the physical and digital — from life-sized
+              parts to circuits to the firmware layer.
+            </p>
 
             <div className="flex flex-wrap gap-2 mb-9">
-              {["Signal Processing", "Control Systems", "Embedded Systems", "PCB Design"].map(
-                (d) => (
-                  <span
-                    key={d}
-                    className="font-mono text-[10px] uppercase tracking-wider px-3 py-1 border cursor-default"
-                    style={{
-                      borderColor: "rgba(77,166,255,0.25)",
-                      color: "rgba(240,240,240,0.7)",
-                    }}
-                  >
-                    {d}
-                  </span>
-                )
-              )}
+              {[
+                "Signal Processing",
+                "Control Systems",
+                "Embedded Systems",
+                "PCB Design",
+              ].map((d) => (
+                <span
+                  key={d}
+                  className="font-mono text-[10px] uppercase tracking-wider px-3 py-1 border cursor-default"
+                  style={{
+                    borderColor: "rgba(77,166,255,0.25)",
+                    color: "rgba(240,240,240,0.7)",
+                  }}
+                >
+                  {d}
+                </span>
+              ))}
             </div>
 
             <div className="flex flex-wrap items-center gap-3">
               {[
-                { href: "mailto:samchen2@stanford.edu", icon: <Mail size={11} />, label: "EMAIL" },
-                { href: "https://linkedin.com", icon: <Linkedin size={11} />, label: "LINKEDIN" },
-                { href: "https://github.com", icon: <Github size={11} />, label: "GITHUB" },
+                {
+                  href: "mailto:samchen2@stanford.edu",
+                  icon: <Mail size={11} />,
+                  label: "EMAIL",
+                },
+                {
+                  href: "https://www.linkedin.com/in/shuan-lin-chen-6b1401260/",
+                  icon: <Linkedin size={11} />,
+                  label: "LINKEDIN",
+                },
+                {
+                  href: "https://github.com/samshuanlin",
+                  icon: <Github size={11} />,
+                  label: "GITHUB",
+                },
               ].map(({ href, icon, label }) => (
                 <a
                   key={label}
                   href={href}
-                  target={href.startsWith("http") ? "_blank" : undefined}
+                  target={
+                    href.startsWith("http")
+                      ? "_blank"
+                      : undefined
+                  }
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 font-mono text-[11px] px-4 py-2.5 border transition-all"
                   style={{
@@ -541,12 +812,22 @@ export default function App() {
                     color: "rgba(240,240,240,0.75)",
                   }}
                   onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(255,255,255,0.5)";
-                    (e.currentTarget as HTMLAnchorElement).style.color = "#f0f0f0";
+                    (
+                      e.currentTarget as HTMLAnchorElement
+                    ).style.borderColor =
+                      "rgba(255,255,255,0.5)";
+                    (
+                      e.currentTarget as HTMLAnchorElement
+                    ).style.color = "#f0f0f0";
                   }}
                   onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(255,255,255,0.2)";
-                    (e.currentTarget as HTMLAnchorElement).style.color = "rgba(240,240,240,0.75)";
+                    (
+                      e.currentTarget as HTMLAnchorElement
+                    ).style.borderColor =
+                      "rgba(255,255,255,0.2)";
+                    (
+                      e.currentTarget as HTMLAnchorElement
+                    ).style.color = "rgba(240,240,240,0.75)";
                   }}
                 >
                   {icon}
@@ -555,11 +836,24 @@ export default function App() {
               ))}
             </div>
           </div>
+
+          {/* Portrait photo slot */}
+          <div
+            className="hidden md:flex flex-col items-center justify-end flex-shrink-0 overflow-hidden"
+            style={{ width: "200px" }}
+          >
+            <img src="front.jpg" alt="Sam Chen" className="w-full object-cover object-top" />
+          </div>
+
+          </div>
         </div>
       </section>
 
       {/* ── Projects ── */}
-      <section id="projects" className="py-24 border-t border-white/8">
+      <section
+        id="projects"
+        className="py-24 border-t border-white/8"
+      >
         <div className="max-w-6xl mx-auto px-6">
           <SectionHeader num="01" title="Projects" />
 
@@ -571,11 +865,15 @@ export default function App() {
                 className="text-left p-6 transition-colors group relative"
                 style={{ background: "#080808" }}
                 onMouseEnter={(e) =>
-                  ((e.currentTarget as HTMLButtonElement).style.background =
+                  ((
+                    e.currentTarget as HTMLButtonElement
+                  ).style.background =
                     "rgba(255,255,255,0.025)")
                 }
                 onMouseLeave={(e) =>
-                  ((e.currentTarget as HTMLButtonElement).style.background = "#080808")
+                  ((
+                    e.currentTarget as HTMLButtonElement
+                  ).style.background = "#080808")
                 }
               >
                 <div className="flex items-start justify-between mb-3">
@@ -588,7 +886,10 @@ export default function App() {
                     </div>
                     <h3
                       className="text-xl font-bold"
-                      style={{ fontFamily: "Rajdhani, sans-serif", color: "#f0f0f0" }}
+                      style={{
+                        fontFamily: "Rajdhani, sans-serif",
+                        color: "#f0f0f0",
+                      }}
                     >
                       {p.title}
                     </h3>
@@ -602,7 +903,7 @@ export default function App() {
                           border: `1px solid ${ACCENT}44`,
                         }}
                       >
-                        FEATURED
+                        ACTIVE
                       </span>
                     )}
                     <ArrowUpRight
@@ -636,7 +937,9 @@ export default function App() {
                 {/* Bottom border hint */}
                 <div
                   className="absolute bottom-0 left-0 right-0 h-px opacity-0 group-hover:opacity-100 transition-opacity"
-                  style={{ background: `linear-gradient(to right, ${ACCENT}44, transparent)` }}
+                  style={{
+                    background: `linear-gradient(to right, ${ACCENT}44, transparent)`,
+                  }}
                 />
               </button>
             ))}
@@ -645,7 +948,10 @@ export default function App() {
       </section>
 
       {/* ── Skills ── */}
-      <section id="skills" className="py-24 border-t border-white/8">
+      <section
+        id="skills"
+        className="py-24 border-t border-white/8"
+      >
         <div className="max-w-6xl mx-auto px-6">
           <SectionHeader num="02" title="Technical Skills" />
 
@@ -656,11 +962,14 @@ export default function App() {
                 className="p-6 transition-colors"
                 style={{ background: "#080808" }}
                 onMouseEnter={(e) =>
-                  ((e.currentTarget as HTMLDivElement).style.background =
-                    "rgba(255,255,255,0.02)")
+                  ((
+                    e.currentTarget as HTMLDivElement
+                  ).style.background = "rgba(255,255,255,0.02)")
                 }
                 onMouseLeave={(e) =>
-                  ((e.currentTarget as HTMLDivElement).style.background = "#080808")
+                  ((
+                    e.currentTarget as HTMLDivElement
+                  ).style.background = "#080808")
                 }
               >
                 <div
@@ -671,7 +980,10 @@ export default function App() {
                 </div>
                 <div
                   className="text-base font-semibold mb-4"
-                  style={{ fontFamily: "Rajdhani, sans-serif", color: "#f0f0f0" }}
+                  style={{
+                    fontFamily: "Rajdhani, sans-serif",
+                    color: "#f0f0f0",
+                  }}
                 >
                   {g.label}
                 </div>
@@ -697,7 +1009,10 @@ export default function App() {
       </section>
 
       {/* ── Contact ── */}
-      <section id="contact" className="py-24 border-t border-white/8">
+      <section
+        id="contact"
+        className="py-24 border-t border-white/8"
+      >
         <div className="max-w-6xl mx-auto px-6">
           <SectionHeader num="03" title="Contact" />
 
@@ -706,28 +1021,58 @@ export default function App() {
               <p
                 className="text-sm leading-relaxed mb-8 max-w-md"
                 style={{ color: "rgba(240,240,240,0.78)" }}
-              >Actively seeking internship opportunities and research collaborations in signal processing, embedded systems, and hardware design. Based in Stanford, CA with roots in Taipei, Taiwan.</p>
+              >
+                Actively seeking opportunities in sensor engineering, 3D vision engineering, and data analysis for physical AI/robotics. Based in
+                Stanford, CA with roots in Taipei, Taiwan.
+              </p>
               <div className="space-y-3">
                 {[
-                  { href: "mailto:samchen2@stanford.edu", label: "samchen2@stanford.edu", icon: <Mail size={11} /> },
-                  { href: "https://linkedin.com", label: "linkedin.com/in/samchen", icon: <Linkedin size={11} /> },
-                  { href: "https://github.com", label: "github.com/samchen", icon: <Github size={11} /> },
+                  {
+                    href: "mailto:samchen2@stanford.edu",
+                    label: "samchen2@stanford.edu",
+                    icon: <Mail size={11} />,
+                  },
+                  {
+                    href: "mailto:samchen2112@gmail.com",
+                    label: "samchen2112@gmail.com",
+                    icon: <Mail size={11} />,
+                  },
+                  {
+                    href: "https://www.linkedin.com/in/shuan-lin-chen-6b1401260/",
+                    label: "linkedin.com/in/shuan-lin-chen-6b1401260",
+                    icon: <Linkedin size={11} />,
+                  },
+                  {
+                    href: "https://github.com",
+                    label: "github.com/samshuanlin",
+                    icon: <Github size={11} />,
+                  },
                 ].map(({ href, label, icon }) => (
                   <a
                     key={label}
                     href={href}
-                    target={href.startsWith("http") ? "_blank" : undefined}
+                    target={
+                      href.startsWith("http")
+                        ? "_blank"
+                        : undefined
+                    }
                     rel="noopener noreferrer"
                     className="flex items-center gap-3 font-mono text-sm transition-colors"
                     style={{ color: "rgba(240,240,240,0.75)" }}
                     onMouseEnter={(e) =>
-                      ((e.currentTarget as HTMLAnchorElement).style.color = "#f0f0f0")
+                      ((
+                        e.currentTarget as HTMLAnchorElement
+                      ).style.color = "#f0f0f0")
                     }
                     onMouseLeave={(e) =>
-                      ((e.currentTarget as HTMLAnchorElement).style.color = "rgba(240,240,240,0.75)")
+                      ((
+                        e.currentTarget as HTMLAnchorElement
+                      ).style.color = "rgba(240,240,240,0.75)")
                     }
                   >
-                    <span style={{ color: ACCENT_DIM }}>{icon}</span>
+                    <span style={{ color: ACCENT_DIM }}>
+                      {icon}
+                    </span>
                     {label}
                   </a>
                 ))}
@@ -743,13 +1088,29 @@ export default function App() {
               </div>
               <div className="space-y-0 divide-y divide-white/6">
                 {[
-                  { key: "LOCATION", val: "Stanford, CA / Taipei, TW" },
-                  { key: "STATUS", val: "Open to internships", accent: true },
-                  { key: "GRADUATION", val: "June 2026" },
-                  { key: "DEGREE", val: "B.S. Electrical Engineering" },
-                  { key: "EMAIL", val: "samchen2@stanford.edu" },
+                  {
+                    key: "LOCATION",
+                    val: "Stanford, CA / Taipei, TW",
+                  },
+                  {
+                    key: "STATUS",
+                    val: "Open to full-time positions",
+                    accent: true,
+                  },
+                  { key: "GRADUATION", val: "June 2027" },
+                  {
+                    key: "DEGREE",
+                    val: "M.S./B.S. Electrical Engineering",
+                  },
+                  {
+                    key: "EMAIL",
+                    val: "samchen2@stanford.edu / samchen2112@gmail.com",
+                  },
                 ].map(({ key, val, accent }) => (
-                  <div key={key} className="flex justify-between items-center py-2.5 gap-4">
+                  <div
+                    key={key}
+                    className="flex justify-between items-center py-2.5 gap-4"
+                  >
                     <span
                       className="font-mono text-[10px] uppercase tracking-wider flex-shrink-0"
                       style={{ color: "rgba(240,240,240,0.6)" }}
@@ -758,7 +1119,11 @@ export default function App() {
                     </span>
                     <span
                       className="font-mono text-[11px] text-right"
-                      style={{ color: accent ? ACCENT : "rgba(240,240,240,0.82)" }}
+                      style={{
+                        color: accent
+                          ? ACCENT
+                          : "rgba(240,240,240,0.82)",
+                      }}
                     >
                       {val}
                     </span>
@@ -776,7 +1141,7 @@ export default function App() {
           className="max-w-6xl mx-auto px-6 flex items-center justify-between font-mono text-[10px]"
           style={{ color: "rgba(240,240,240,0.5)" }}
         >
-          <span>© 2025 Shuan-Lin (Sam) Chen</span>
+          <span>© 2026 Shuan-Lin (Sam) Chen</span>
           <span>samchen2@stanford.edu</span>
         </div>
       </footer>
