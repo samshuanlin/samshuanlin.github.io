@@ -1,6 +1,16 @@
 import { useState } from "react";
 
-const BASE = import.meta.env.BASE_URL;
+import imgFront from "@/assets/front.jpg";
+import imgCameraTrap1 from "@/assets/IMG_6360.jpg";
+import imgCameraTrap2 from "@/assets/IMG_4660.jpg";
+import imgEscape1 from "@/assets/KC_04806.JPG";
+import imgEscape2 from "@/assets/KC_04752.JPG";
+import imgEscape3 from "@/assets/KC_04778.JPG";
+import imgEscape4 from "@/assets/KC_04802.JPG";
+import imgClock1 from "@/assets/IMG_3959.jpeg";
+import imgClock2 from "@/assets/IMG_3961.jpeg";
+import imgRadar1 from "@/assets/Thicksquare.jpg";
+import imgRadar2 from "@/assets/thickwall_tracking.png";
 import {
   Mail,
   Github,
@@ -180,14 +190,8 @@ const projects: Project[] = [
     ],
     featured: true,
     photos: [
-      {
-        src: "IMG_6360.jpg",
-        alt: "Camera trap prototype field deployment against other commerical systems",
-      },
-      {
-        src: "IMG_4660.jpg",
-        alt: "Camera trap field deployment scene",
-      },
+      { src: imgCameraTrap1, alt: "Camera trap prototype field deployment against other commerical systems" },
+      { src: imgCameraTrap2, alt: "Camera trap field deployment scene" },
     ],
     specs: [
       { label: "Started", value: "Apr 2025" },
@@ -217,10 +221,10 @@ const projects: Project[] = [
       url: "https://escaperoom.stanford.edu/photos",
     },
     photos: [
-      { src: "KC_04806.JPG", alt: "Escape room overview" },
-      { src: "KC_04752.JPG", alt: "Escape room puzzle - 1" },
-      { src: "KC_04778.JPG", alt: "Escape room video game" },
-      { src: "KC_04802.JPG", alt: "Escape room puzzle - 2" },
+      { src: imgEscape1, alt: "Escape room overview" },
+      { src: imgEscape2, alt: "Escape room puzzle - 1" },
+      { src: imgEscape3, alt: "Escape room video game" },
+      { src: imgEscape4, alt: "Escape room puzzle - 2" },
     ],
     specs: [
       { label: "Started", value: "Aug 2025" },
@@ -239,8 +243,8 @@ const projects: Project[] = [
     tags: ["KiCad", "Python", "Circuit design"],
     featured: false,
     photos: [
-      { src: "IMG_3959.jpeg", alt: "RGB clock PCB" },
-      { src: "IMG_3961.jpeg", alt: "RGB clock assembled" },
+      { src: imgClock1, alt: "RGB clock PCB" },
+      { src: imgClock2, alt: "RGB clock assembled" },
     ],
     specs: [
       { label: "Started", value: "Sept 2024" },
@@ -259,11 +263,8 @@ const projects: Project[] = [
     tags: ["3D+ sensing", "Radars", "Image signal processing"],
     featured: false,
     photos: [
-      { src: "Thicksquare.jpg", alt: "mmWave radar setup" },
-      {
-        src: "thickwall_tracking.png",
-        alt: "Through-wall detection output",
-      },
+      { src: imgRadar1, alt: "mmWave radar setup" },
+      { src: imgRadar2, alt: "Through-wall detection output" },
     ],
     specs: [
       { label: "Started", value: "Apr 2026" },
@@ -487,7 +488,7 @@ function ProjectPage({
         >
           {project.photos?.[0] ? (
             <img
-              src={`${BASE}${project.photos[0].src}`}
+              src={project.photos[0].src}
               alt={project.photos[0].alt}
               className="w-full h-full object-cover"
             />
@@ -577,7 +578,7 @@ function ProjectPage({
                       style={{ height: "200px" }}
                     >
                       <img
-                        src={`${BASE}${photo.src}`}
+                        src={photo.src}
                         alt={photo.alt}
                         className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                       />
@@ -912,7 +913,7 @@ export default function App() {
               style={{ width: "200px" }}
             >
               <img
-                src={"/front.jpg"}
+                src={imgFront}
                 alt="Sam Chen"
                 className="w-full h-full object-cover object-top"
               />
