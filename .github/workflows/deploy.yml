@@ -1,0 +1,59 @@
+name: Build and Deploy Pages
+
+on:
+  push:
+    branches: ["main"]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 1. Install PNPM
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      # 2. Setup Node.js (Node 24 prevents deprecation errors)
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      # 3. Install project dependencies
+      - name: Install dependencies
+        run: pnpm install
+
+      # 4. Compile the Figma React code into standard HTML/CSS/JS
+      - name: Build project
+        run: pnpm build
+
+      # 5. Prepare the GitHub Pages context
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      # 6. Package and upload the compiled 'dist' folder
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './dist' 
+
+      # 7. Take that uploaded package and deploy it to your URL
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
