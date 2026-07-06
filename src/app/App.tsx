@@ -158,6 +158,7 @@ interface Project {
   featured: boolean;
   specs: { label: string; value: string }[];
   link?: { label: string; url: string };
+  photos?: { src: string; alt: string }[];
 }
 
 const projects: Project[] = [
@@ -176,6 +177,10 @@ const projects: Project[] = [
       "LoRa",
     ],
     featured: true,
+    photos: [
+      { src: "IMG_6360.jpg", alt: "Camera trap prototype field deployment against other commerical systems" },
+      { src: "IMG_4660.jpg", alt: "Camera trap field deployment scene" },
+    ],
     specs: [
       { label: "Started", value: "Apr 2025" },
       {
@@ -186,7 +191,7 @@ const projects: Project[] = [
   },
   {
     id: "02",
-    title: "Stanford Escape Team Lead",
+    title: "Stanford Escape",
     org: "Stanford Student Robotics / Stanford ACM",
     summary:
       "In-person on-campus escape room designed and crafted by team of engineers, theater artists, and creative designers.",
@@ -200,6 +205,12 @@ const projects: Project[] = [
     ],
     featured: false,
     link: { label: "View our Website", url: "https://escaperoom.stanford.edu/photos" },
+    photos: [
+      { src: "KC_04806.JPG", alt: "Escape room overview" },
+      { src: "KC_04752.JPG", alt: "Escape room puzzle - 1" },
+      { src: "KC_04778.JPG", alt: "Escape room video game" },
+      { src: "KC_04802.JPG", alt: "Escape room puzzle - 2" },
+    ],
     specs: [
       { label: "Started", value: "Aug 2025" },
       { label: "Status", value: "Finished" },
@@ -220,10 +231,14 @@ const projects: Project[] = [
       "Circuit design",
     ],
     featured: false,
+    photos: [
+      { src: "IMG_3959.jpeg", alt: "RGB clock PCB" },
+      { src: "IMG_3961.jpeg", alt: "RGB clock assembled" },
+    ],
     specs: [
-      { label: "Started", value: "Sept 2025" },
+      { label: "Started", value: "Sept 2024" },
       { label: "Status", value: "Finished" },
-      { label: "Ended", value: "Dec 2025"},
+      { label: "Ended", value: "Dec 2024"},
     ],
   },
   {
@@ -240,6 +255,10 @@ const projects: Project[] = [
       "Image signal processing",
     ],
     featured: false,
+    photos: [
+      { src: "Thicksquare.jpg", alt: "mmWave radar setup" },
+      { src: "thickwall_tracking.png", alt: "Through-wall detection output" },
+    ],
     specs: [
       { label: "Started", value: "Apr 2026" },
       { label: "Status", value: "Finished" },
@@ -452,14 +471,26 @@ function ProjectPage({
 
         {/* Hero photo slot */}
         <div
-          className="w-full mb-12 flex items-center justify-center border border-dashed"
-          style={{
-            height: "340px",
-            borderColor: "rgba(255,255,255,0.12)",
-            background: "rgba(255,255,255,0.02)",
-          }}
+          className="w-full mb-12 overflow-hidden"
+          style={{ height: "340px", background: "rgba(255,255,255,0.02)" }}
         >
-          <img src="front.jpg" alt="Sam Chen" className="w-full h-full object-cover object-top" />
+          {project.photos?.[0] ? (
+            <img
+              src={project.photos[0].src}
+              alt={project.photos[0].alt}
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            <div
+              className="w-full h-full flex items-center justify-center border border-dashed"
+              style={{ borderColor: "rgba(255,255,255,0.12)" }}
+            >
+              <div className="text-center pointer-events-none select-none">
+                <div className="font-mono text-[11px] mb-1" style={{ color: "rgba(240,240,240,0.25)" }}>PHOTO_01</div>
+                <div className="font-mono text-[10px]" style={{ color: "rgba(240,240,240,0.18)" }}>replace with image</div>
+              </div>
+            </div>
+          )}
         </div>
 
         <div className="grid md:grid-cols-[1fr_260px] gap-12 items-start">
@@ -514,28 +545,26 @@ function ProjectPage({
 
             {/* Secondary photo slot */}
             <div
-              className="mt-8 flex items-center justify-center border border-dashed"
-              style={{
-                height: "220px",
-                borderColor: "rgba(255,255,255,0.1)",
-                background: "rgba(255,255,255,0.015)",
-              }}
+              className="mt-8 overflow-hidden"
+              style={{ height: "220px", background: "rgba(255,255,255,0.015)" }}
             >
-              {/* Replace this div with <img src="..." alt="..." className="w-full h-full object-cover" /> */}
-              <div className="text-center pointer-events-none select-none">
+              {project.photos?.[1] ? (
+                <img
+                  src={project.photos[1].src}
+                  alt={project.photos[1].alt}
+                  className="w-full h-full object-cover"
+                />
+              ) : (
                 <div
-                  className="font-mono text-[11px] mb-1"
-                  style={{ color: "rgba(240,240,240,0.25)" }}
+                  className="w-full h-full flex items-center justify-center border border-dashed"
+                  style={{ borderColor: "rgba(255,255,255,0.1)" }}
                 >
-                  PHOTO_02
+                  <div className="text-center pointer-events-none select-none">
+                    <div className="font-mono text-[11px] mb-1" style={{ color: "rgba(240,240,240,0.25)" }}>PHOTO_02</div>
+                    <div className="font-mono text-[10px]" style={{ color: "rgba(240,240,240,0.18)" }}>replace with image</div>
+                  </div>
                 </div>
-                <div
-                  className="font-mono text-[10px]"
-                  style={{ color: "rgba(240,240,240,0.18)" }}
-                >
-                  replace with image
-                </div>
-              </div>
+              )}
             </div>
           </div>
 
@@ -678,15 +707,22 @@ export default function App() {
         id="home"
         className="min-h-screen pt-14 flex items-center relative overflow-hidden"
       >
-        <HeroBackground />
+        {/* Hero background image — replace src when ready */}
+        <div className="absolute inset-0 pointer-events-none select-none">
+          {/* Replace this div with: <img src="your-banner.jpg" alt="" className="w-full h-full object-cover" /> */}
+          <div className="w-full h-full" style={{ background: "#080808" }} />
+        </div>
 
-        {/* Fade gradient at bottom so content below reads clean */}
+        {/* Dark overlay so text stays legible over any photo */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{ background: "rgba(8,8,8,0.55)" }}
+        />
+
+        {/* Fade at bottom */}
         <div
           className="absolute bottom-0 left-0 right-0 h-40 pointer-events-none"
-          style={{
-            background:
-              "linear-gradient(to bottom, transparent, #080808)",
-          }}
+          style={{ background: "linear-gradient(to bottom, transparent, #080808)" }}
         />
 
         <div className="max-w-6xl mx-auto px-6 w-full py-28 relative z-10">
@@ -839,10 +875,10 @@ export default function App() {
 
           {/* Portrait photo slot */}
           <div
-            className="hidden md:flex flex-col items-center justify-end flex-shrink-0 overflow-hidden"
+            className="hidden md:self-stretch md:block flex-shrink-0 overflow-hidden"
             style={{ width: "200px" }}
           >
-            <img src="front.jpg" alt="Sam Chen" className="w-full object-cover object-top" />
+            <img src="front.jpg" alt="Sam Chen" className="w-full h-full object-cover object-top" />
           </div>
 
           </div>
