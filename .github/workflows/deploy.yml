@@ -29,28 +29,31 @@ jobs:
         with:
           version: 9
 
-      # 2. Setup Node.js (Updated to Node 24 to fix the deprecation error)
+      # 2. Setup Node.js (Node 24 prevents deprecation errors)
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 24
-          # Cache is removed here so it won't crash looking for a lockfile
 
-      # 3. Install your project's dependencies
+      # 3. Install project dependencies
       - name: Install dependencies
         run: pnpm install
 
-      # 4. Compile the Figma code into static HTML/CSS/JS
+      # 4. Compile the Figma React code into standard HTML/CSS/JS
       - name: Build project
         run: pnpm build
 
-      # NEW DIAGNOSTIC STEP: Check where the files are
-      - name: List files to find the build folder
-        run: |
-          echo "=== Root Folder ==="
-          ls -la
-          echo "=== Is there a dist folder? ==="
-          ls -la dist || echo "No dist folder here"
-
+      # 5. Prepare the GitHub Pages context
       - name: Setup Pages
         uses: actions/configure-pages@v5
+
+      # 6. CRUCIAL STEP: Package and upload the compiled 'dist' folder
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './dist' 
+
+      # 7. CRUCIAL STEP: Take that uploaded package and deploy it to your URL
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
