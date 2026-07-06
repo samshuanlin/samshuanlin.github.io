@@ -47,13 +47,13 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
-      # 6. CRUCIAL STEP: Package and upload the compiled 'dist' folder
+      # 6. Package and upload the compiled 'dist' folder
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: './dist' 
 
-      # 7. CRUCIAL STEP: Take that uploaded package and deploy it to your URL
+      # 7. Take that uploaded package and deploy it to your URL
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
