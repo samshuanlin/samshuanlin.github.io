@@ -24,109 +24,6 @@ import {
 const ACCENT = "#4da6ff";
 const ACCENT_DIM = "rgba(77,166,255,0.55)";
 
-// ─── Background oscilloscope (very dim, decorative) ──────────────────────────
-
-function HeroBackground() {
-  const W = 1200;
-  const H = 520;
-
-  // Multi-layer signal: sum of harmonics resembling a real measurement
-  const pts: string[] = [];
-  for (let i = 0; i <= 500; i++) {
-    const x = (i / 500) * W;
-    const t = (i / 500) * Math.PI * 8;
-    const y =
-      H * 0.52 -
-      (Math.sin(t) * 110 +
-        Math.sin(t * 2.1) * 38 +
-        Math.sin(t * 4.9) * 14 +
-        Math.sin(t * 11.3) * 5);
-    pts.push(
-      `${x.toFixed(1)},${Math.max(10, Math.min(H - 10, y)).toFixed(1)}`,
-    );
-  }
-  const sine = `M ${pts.join(" L ")}`;
-
-  // Square wave (digital signal underneath)
-  const sqPts: string[] = [];
-  const steps = 14;
-  let sy = H * 0.72;
-  sqPts.push(`0,${sy}`);
-  for (let i = 0; i < steps; i++) {
-    const x = (i / steps) * W;
-    sqPts.push(`${x.toFixed(1)},${sy}`);
-    sy = sy < H * 0.5 ? H * 0.72 : H * 0.28;
-    sqPts.push(`${x.toFixed(1)},${sy}`);
-  }
-  sqPts.push(`${W},${sy}`);
-  const square = `M ${sqPts.join(" L ")}`;
-
-  const gridCols = 10;
-  const gridRows = 5;
-
-  return (
-    <svg
-      viewBox={`0 0 ${W} ${H}`}
-      preserveAspectRatio="xMidYMid slice"
-      className="absolute inset-0 w-full h-full pointer-events-none select-none"
-      aria-hidden="true"
-    >
-      {/* Grid lines */}
-      {Array.from({ length: gridRows + 1 }).map((_, i) => (
-        <line
-          key={`h${i}`}
-          x1="0"
-          y1={(H / gridRows) * i}
-          x2={W}
-          y2={(H / gridRows) * i}
-          stroke="rgba(255,255,255,0.04)"
-          strokeWidth="1"
-        />
-      ))}
-      {Array.from({ length: gridCols + 1 }).map((_, i) => (
-        <line
-          key={`v${i}`}
-          x1={(W / gridCols) * i}
-          y1="0"
-          x2={(W / gridCols) * i}
-          y2={H}
-          stroke="rgba(255,255,255,0.04)"
-          strokeWidth="1"
-        />
-      ))}
-      {/* Center axis */}
-      <line
-        x1="0"
-        y1={H * 0.52}
-        x2={W}
-        y2={H * 0.52}
-        stroke="rgba(255,255,255,0.07)"
-        strokeWidth="1"
-      />
-      {/* Square wave */}
-      <path
-        d={square}
-        fill="none"
-        stroke="rgba(77,166,255,0.09)"
-        strokeWidth="1.5"
-      />
-      {/* Main sine trace */}
-      <path
-        d={sine}
-        fill="none"
-        stroke="rgba(77,166,255,0.14)"
-        strokeWidth="2"
-        strokeLinecap="round"
-        style={{
-          filter: "drop-shadow(0 0 8px rgba(77,166,255,0.08))",
-          strokeDasharray: 6000,
-          animation: "traceReveal 3s ease-out forwards",
-        }}
-      />
-    </svg>
-  );
-}
-
 // ─── Section header ───────────────────────────────────────────────────────────
 
 function SectionHeader({
@@ -480,17 +377,15 @@ function ProjectPage({
 
         {/* Hero photo slot */}
         <div
-          className="w-full mb-12 overflow-hidden"
-          style={{
-            height: "340px",
-            background: "rgba(255,255,255,0.02)",
-          }}
+          className="w-full mb-12"
+          style={{ background: "rgba(255,255,255,0.02)" }}
         >
           {project.photos?.[0] ? (
             <img
               src={project.photos[0].src}
               alt={project.photos[0].alt}
-              className="w-full h-full object-cover"
+              className="w-full"
+              style={{ display: "block" }}
             />
           ) : (
             <div
@@ -572,15 +467,12 @@ function ProjectPage({
                   className={`grid gap-2 ${project.photos.length - 1 >= 3 ? "grid-cols-3" : project.photos.length - 1 === 2 ? "grid-cols-2" : "grid-cols-1"}`}
                 >
                   {project.photos.slice(1).map((photo, i) => (
-                    <div
-                      key={i}
-                      className="overflow-hidden"
-                      style={{ height: "200px" }}
-                    >
+                    <div key={i} className="overflow-hidden">
                       <img
                         src={photo.src}
                         alt={photo.alt}
-                        className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                        className="w-full transition-transform duration-500 hover:scale-105"
+                        style={{ display: "block" }}
                       />
                     </div>
                   ))}
@@ -753,8 +645,8 @@ export default function App() {
         />
 
         <div className="max-w-6xl mx-auto px-6 w-full py-28 relative z-10">
-          <div className="grid md:grid-cols-[1fr_auto] gap-12 items-stretch">
-            <div className="">
+          <div className="grid md:grid-cols-[minmax(0,620px)_auto] gap-8 items-stretch">
+            <div className="min-w-0">
               <div
                 className="font-mono text-[11px] mb-6 flex items-center gap-2"
                 style={{ color: "rgba(240,240,240,0.65)" }}
@@ -909,13 +801,14 @@ export default function App() {
 
             {/* Portrait photo slot */}
             <div
-              className="hidden md:self-stretch md:block flex-shrink-0 overflow-hidden"
-              style={{ width: "200px" }}
+              className="hidden md:block flex-shrink-0"
+              style={{ width: "320px" }}
             >
               <img
                 src={imgFront}
                 alt="Sam Chen"
-                className="w-full h-full object-cover object-top"
+                className="w-full"
+                style={{ display: "block" }}
               />
             </div>
           </div>
