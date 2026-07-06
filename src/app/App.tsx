@@ -1,4 +1,6 @@
 import { useState } from "react";
+
+const BASE = import.meta.env.BASE_URL;
 import {
   Mail,
   Github,
@@ -178,8 +180,14 @@ const projects: Project[] = [
     ],
     featured: true,
     photos: [
-      { src: "/IMG_6360.jpg", alt: "Camera trap prototype field deployment against other commerical systems" },
-      { src: "/IMG_4660.jpg", alt: "Camera trap field deployment scene" },
+      {
+        src: "IMG_6360.jpg",
+        alt: "Camera trap prototype field deployment against other commerical systems",
+      },
+      {
+        src: "IMG_4660.jpg",
+        alt: "Camera trap field deployment scene",
+      },
     ],
     specs: [
       { label: "Started", value: "Apr 2025" },
@@ -204,12 +212,15 @@ const projects: Project[] = [
       "Mechanical prototyping",
     ],
     featured: false,
-    link: { label: "View our Website", url: "https://escaperoom.stanford.edu/photos" },
+    link: {
+      label: "View our Website",
+      url: "https://escaperoom.stanford.edu/photos",
+    },
     photos: [
-      { src: "/KC_04806.JPG", alt: "Escape room overview" },
-      { src: "/KC_04752.JPG", alt: "Escape room puzzle - 1" },
-      { src: "/KC_04778.JPG", alt: "Escape room video game" },
-      { src: "/KC_04802.JPG", alt: "Escape room puzzle - 2" },
+      { src: "KC_04806.JPG", alt: "Escape room overview" },
+      { src: "KC_04752.JPG", alt: "Escape room puzzle - 1" },
+      { src: "KC_04778.JPG", alt: "Escape room video game" },
+      { src: "KC_04802.JPG", alt: "Escape room puzzle - 2" },
     ],
     specs: [
       { label: "Started", value: "Aug 2025" },
@@ -225,20 +236,16 @@ const projects: Project[] = [
       "PCB design for a 7-segment 4-digit clock display.",
     detail:
       "In this end-to-end PCB project, I designed a digital clock combining a 7-segment 4-digit display to show the time and temperature/lux sensors to allow for dynamic color shifting and dimming/brightening of the display. The project incorporates I2C, SPI, UART and SWD communication interfaces to support all the functionalities.",
-    tags: [
-      "KiCad",
-      "Python",
-      "Circuit design",
-    ],
+    tags: ["KiCad", "Python", "Circuit design"],
     featured: false,
     photos: [
-      { src: "/IMG_3959.jpeg", alt: "RGB clock PCB" },
-      { src: "/IMG_3961.jpeg", alt: "RGB clock assembled" },
+      { src: "IMG_3959.jpeg", alt: "RGB clock PCB" },
+      { src: "IMG_3961.jpeg", alt: "RGB clock assembled" },
     ],
     specs: [
       { label: "Started", value: "Sept 2024" },
       { label: "Status", value: "Finished" },
-      { label: "Ended", value: "Dec 2024"},
+      { label: "Ended", value: "Dec 2024" },
     ],
   },
   {
@@ -249,15 +256,14 @@ const projects: Project[] = [
       "FMCW radar detection and tracking of human movement behind walls.",
     detail:
       "In this project, we leveraged a TI IWR6843ISK 60GHz FMCW radar to achieve through-wall sensing of human movement. To optimize the system for our specific environment, we systematically configured the FMCW chirp parameters—fine-tuning the maximum unambiguous range, velocity limits, and their respective resolutions. Using the resulting Range-Doppler plots, we developed a target identification algorithm to accurately detect human motion across successive frames.",
-    tags: [
-      "3D+ sensing",
-      "Radars",
-      "Image signal processing",
-    ],
+    tags: ["3D+ sensing", "Radars", "Image signal processing"],
     featured: false,
     photos: [
-      { src: "/Thicksquare.jpg", alt: "mmWave radar setup" },
-      { src: "/thickwall_tracking.png", alt: "Through-wall detection output" },
+      { src: "Thicksquare.jpg", alt: "mmWave radar setup" },
+      {
+        src: "thickwall_tracking.png",
+        alt: "Through-wall detection output",
+      },
     ],
     specs: [
       { label: "Started", value: "Apr 2026" },
@@ -311,7 +317,7 @@ const skillGroups = [
       "Verilog",
       "RTOS",
       "I2C / SPI / UART",
-      "MIPI / SDIO / USB"
+      "MIPI / SDIO / USB",
     ],
   },
   {
@@ -321,19 +327,13 @@ const skillGroups = [
       "KiCad",
       "Altium",
       "LTSPICE Simulation",
-      "Bench Equipment"
+      "Bench Equipment",
     ],
   },
   {
     mono: "SW_TOOLS",
     label: "Software & Tools",
-    skills: [
-      "Python",
-      "C/C++",
-      "MATLAB",
-      "Linux",
-      "Git",
-    ],
+    skills: ["Python", "C/C++", "MATLAB", "Linux", "Git"],
   },
 ];
 
@@ -455,12 +455,20 @@ function ProjectPage({
                 color: ACCENT,
               }}
               onMouseEnter={(e) => {
-                (e.currentTarget as HTMLAnchorElement).style.borderColor = ACCENT;
-                (e.currentTarget as HTMLAnchorElement).style.background = "rgba(77,166,255,0.08)";
+                (
+                  e.currentTarget as HTMLAnchorElement
+                ).style.borderColor = ACCENT;
+                (
+                  e.currentTarget as HTMLAnchorElement
+                ).style.background = "rgba(77,166,255,0.08)";
               }}
               onMouseLeave={(e) => {
-                (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(77,166,255,0.35)";
-                (e.currentTarget as HTMLAnchorElement).style.background = "transparent";
+                (
+                  e.currentTarget as HTMLAnchorElement
+                ).style.borderColor = "rgba(77,166,255,0.35)";
+                (
+                  e.currentTarget as HTMLAnchorElement
+                ).style.background = "transparent";
               }}
             >
               <ArrowUpRight size={12} />
@@ -472,11 +480,14 @@ function ProjectPage({
         {/* Hero photo slot */}
         <div
           className="w-full mb-12 overflow-hidden"
-          style={{ height: "340px", background: "rgba(255,255,255,0.02)" }}
+          style={{
+            height: "340px",
+            background: "rgba(255,255,255,0.02)",
+          }}
         >
           {project.photos?.[0] ? (
             <img
-              src={project.photos[0].src}
+              src={`${BASE}${project.photos[0].src}`}
               alt={project.photos[0].alt}
               className="w-full h-full object-cover"
             />
@@ -486,8 +497,18 @@ function ProjectPage({
               style={{ borderColor: "rgba(255,255,255,0.12)" }}
             >
               <div className="text-center pointer-events-none select-none">
-                <div className="font-mono text-[11px] mb-1" style={{ color: "rgba(240,240,240,0.25)" }}>PHOTO_01</div>
-                <div className="font-mono text-[10px]" style={{ color: "rgba(240,240,240,0.18)" }}>replace with image</div>
+                <div
+                  className="font-mono text-[11px] mb-1"
+                  style={{ color: "rgba(240,240,240,0.25)" }}
+                >
+                  PHOTO_01
+                </div>
+                <div
+                  className="font-mono text-[10px]"
+                  style={{ color: "rgba(240,240,240,0.18)" }}
+                >
+                  replace with image
+                </div>
               </div>
             </div>
           )}
@@ -543,29 +564,28 @@ function ProjectPage({
               })}
             </div>
 
-            {/* Secondary photo slot */}
-            <div
-              className="mt-8 overflow-hidden"
-              style={{ height: "220px", background: "rgba(255,255,255,0.015)" }}
-            >
-              {project.photos?.[1] ? (
-                <img
-                  src={project.photos[1].src}
-                  alt={project.photos[1].alt}
-                  className="w-full h-full object-cover"
-                />
-              ) : (
+            {/* Remaining photos — 1 alone or 2+ in a grid */}
+            {project.photos && project.photos.length > 1 && (
+              <div className="mt-8">
                 <div
-                  className="w-full h-full flex items-center justify-center border border-dashed"
-                  style={{ borderColor: "rgba(255,255,255,0.1)" }}
+                  className={`grid gap-2 ${project.photos.length - 1 >= 3 ? "grid-cols-3" : project.photos.length - 1 === 2 ? "grid-cols-2" : "grid-cols-1"}`}
                 >
-                  <div className="text-center pointer-events-none select-none">
-                    <div className="font-mono text-[11px] mb-1" style={{ color: "rgba(240,240,240,0.25)" }}>PHOTO_02</div>
-                    <div className="font-mono text-[10px]" style={{ color: "rgba(240,240,240,0.18)" }}>replace with image</div>
-                  </div>
+                  {project.photos.slice(1).map((photo, i) => (
+                    <div
+                      key={i}
+                      className="overflow-hidden"
+                      style={{ height: "200px" }}
+                    >
+                      <img
+                        src={`${BASE}${photo.src}`}
+                        alt={photo.alt}
+                        className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                      />
+                    </div>
+                  ))}
                 </div>
-              )}
-            </div>
+              </div>
+            )}
           </div>
 
           {/* Spec table */}
@@ -710,7 +730,10 @@ export default function App() {
         {/* Hero background image — replace src when ready */}
         <div className="absolute inset-0 pointer-events-none select-none">
           {/* Replace this div with: <img src="your-banner.jpg" alt="" className="w-full h-full object-cover" /> */}
-          <div className="w-full h-full" style={{ background: "#080808" }} />
+          <div
+            className="w-full h-full"
+            style={{ background: "#080808" }}
+          />
         </div>
 
         {/* Dark overlay so text stays legible over any photo */}
@@ -722,165 +745,178 @@ export default function App() {
         {/* Fade at bottom */}
         <div
           className="absolute bottom-0 left-0 right-0 h-40 pointer-events-none"
-          style={{ background: "linear-gradient(to bottom, transparent, #080808)" }}
+          style={{
+            background:
+              "linear-gradient(to bottom, transparent, #080808)",
+          }}
         />
 
         <div className="max-w-6xl mx-auto px-6 w-full py-28 relative z-10">
           <div className="grid md:grid-cols-[1fr_auto] gap-12 items-stretch">
-          <div className="">
-            <div
-              className="font-mono text-[11px] mb-6 flex items-center gap-2"
-              style={{ color: "rgba(240,240,240,0.65)" }}
-            >
-              <span style={{ color: ACCENT }}>{">"}</span>
-              <span>Users</span>
-              <span style={{ color: "rgba(240,240,240,0.35)" }}>
-                /
-              </span>
-              <span>Sam Chen</span>
-              <span style={{ color: "rgba(240,240,240,0.35)" }}>
-                /
-              </span>
-              <span>portfolio</span>
-              <span
-                className="cursor-blink"
-                style={{ color: ACCENT }}
-              >
-                _
-              </span>
-            </div>
-
-            <h1
-              className="text-6xl lg:text-7xl font-bold leading-none mb-5"
-              style={{
-                fontFamily: "Rajdhani, sans-serif",
-                letterSpacing: "-0.01em",
-                color: "#f0f0f0",
-              }}
-            >
-              Shuan-Lin
-              <br />
-              <span style={{ color: "rgba(240,240,240,0.6)" }}>
-                (Sam){" "}
-              </span>
-              Chen
-            </h1>
-
-            <div className="flex items-center gap-3 mb-5">
+            <div className="">
               <div
-                className="h-px w-10 flex-shrink-0"
-                style={{ background: ACCENT }}
-              />
-              <p
-                className="font-semibold uppercase tracking-widest"
+                className="font-mono text-[11px] mb-6 flex items-center gap-2"
+                style={{ color: "rgba(240,240,240,0.65)" }}
+              >
+                <span style={{ color: ACCENT }}>{">"}</span>
+                <span>Users</span>
+                <span
+                  style={{ color: "rgba(240,240,240,0.35)" }}
+                >
+                  /
+                </span>
+                <span>Sam Chen</span>
+                <span
+                  style={{ color: "rgba(240,240,240,0.35)" }}
+                >
+                  /
+                </span>
+                <span>portfolio</span>
+                <span
+                  className="cursor-blink"
+                  style={{ color: ACCENT }}
+                >
+                  _
+                </span>
+              </div>
+
+              <h1
+                className="text-6xl lg:text-7xl font-bold leading-none mb-5"
                 style={{
                   fontFamily: "Rajdhani, sans-serif",
-                  letterSpacing: "0.12em",
-                  color: "rgba(240,240,240,0.75)",
-                  fontSize: "0.9rem",
+                  letterSpacing: "-0.01em",
+                  color: "#f0f0f0",
                 }}
               >
-                Electrical Engineer · embedded engineer
-              </p>
-            </div>
-
-            <p
-              className="text-sm leading-relaxed mb-7 max-w-lg"
-              style={{ color: "rgba(240,240,240,0.75)" }}
-            >
-              Stanford M.S. and B.S. EE student focused on
-              signal processing, control systems, and embedded
-              hardware. Motivated by building systems that
-              bridge the physical and digital — from life-sized
-              parts to circuits to the firmware layer.
-            </p>
-
-            <div className="flex flex-wrap gap-2 mb-9">
-              {[
-                "Signal Processing",
-                "Control Systems",
-                "Embedded Systems",
-                "PCB Design",
-              ].map((d) => (
+                Shuan-Lin
+                <br />
                 <span
-                  key={d}
-                  className="font-mono text-[10px] uppercase tracking-wider px-3 py-1 border cursor-default"
-                  style={{
-                    borderColor: "rgba(77,166,255,0.25)",
-                    color: "rgba(240,240,240,0.7)",
-                  }}
+                  style={{ color: "rgba(240,240,240,0.6)" }}
                 >
-                  {d}
+                  (Sam){" "}
                 </span>
-              ))}
-            </div>
+                Chen
+              </h1>
 
-            <div className="flex flex-wrap items-center gap-3">
-              {[
-                {
-                  href: "mailto:samchen2@stanford.edu",
-                  icon: <Mail size={11} />,
-                  label: "EMAIL",
-                },
-                {
-                  href: "https://www.linkedin.com/in/shuan-lin-chen-6b1401260/",
-                  icon: <Linkedin size={11} />,
-                  label: "LINKEDIN",
-                },
-                {
-                  href: "https://github.com/samshuanlin",
-                  icon: <Github size={11} />,
-                  label: "GITHUB",
-                },
-              ].map(({ href, icon, label }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target={
-                    href.startsWith("http")
-                      ? "_blank"
-                      : undefined
-                  }
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 font-mono text-[11px] px-4 py-2.5 border transition-all"
+              <div className="flex items-center gap-3 mb-5">
+                <div
+                  className="h-px w-10 flex-shrink-0"
+                  style={{ background: ACCENT }}
+                />
+                <p
+                  className="font-semibold uppercase tracking-widest"
                   style={{
-                    borderColor: "rgba(255,255,255,0.2)",
+                    fontFamily: "Rajdhani, sans-serif",
+                    letterSpacing: "0.12em",
                     color: "rgba(240,240,240,0.75)",
-                  }}
-                  onMouseEnter={(e) => {
-                    (
-                      e.currentTarget as HTMLAnchorElement
-                    ).style.borderColor =
-                      "rgba(255,255,255,0.5)";
-                    (
-                      e.currentTarget as HTMLAnchorElement
-                    ).style.color = "#f0f0f0";
-                  }}
-                  onMouseLeave={(e) => {
-                    (
-                      e.currentTarget as HTMLAnchorElement
-                    ).style.borderColor =
-                      "rgba(255,255,255,0.2)";
-                    (
-                      e.currentTarget as HTMLAnchorElement
-                    ).style.color = "rgba(240,240,240,0.75)";
+                    fontSize: "0.9rem",
                   }}
                 >
-                  {icon}
-                  {label}
-                </a>
-              ))}
+                  Electrical Engineer · embedded engineer
+                </p>
+              </div>
+
+              <p
+                className="text-sm leading-relaxed mb-7 max-w-lg"
+                style={{ color: "rgba(240,240,240,0.75)" }}
+              >
+                Stanford M.S. and B.S. EE student focused on
+                signal processing, control systems, and embedded
+                hardware. Motivated by building systems that
+                bridge the physical and digital — from
+                life-sized parts to circuits to the firmware
+                layer.
+              </p>
+
+              <div className="flex flex-wrap gap-2 mb-9">
+                {[
+                  "Signal Processing",
+                  "Control Systems",
+                  "Embedded Systems",
+                  "PCB Design",
+                ].map((d) => (
+                  <span
+                    key={d}
+                    className="font-mono text-[10px] uppercase tracking-wider px-3 py-1 border cursor-default"
+                    style={{
+                      borderColor: "rgba(77,166,255,0.25)",
+                      color: "rgba(240,240,240,0.7)",
+                    }}
+                  >
+                    {d}
+                  </span>
+                ))}
+              </div>
+
+              <div className="flex flex-wrap items-center gap-3">
+                {[
+                  {
+                    href: "mailto:samchen2@stanford.edu",
+                    icon: <Mail size={11} />,
+                    label: "EMAIL",
+                  },
+                  {
+                    href: "https://www.linkedin.com/in/shuan-lin-chen-6b1401260/",
+                    icon: <Linkedin size={11} />,
+                    label: "LINKEDIN",
+                  },
+                  {
+                    href: "https://github.com/samshuanlin",
+                    icon: <Github size={11} />,
+                    label: "GITHUB",
+                  },
+                ].map(({ href, icon, label }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    target={
+                      href.startsWith("http")
+                        ? "_blank"
+                        : undefined
+                    }
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 font-mono text-[11px] px-4 py-2.5 border transition-all"
+                    style={{
+                      borderColor: "rgba(255,255,255,0.2)",
+                      color: "rgba(240,240,240,0.75)",
+                    }}
+                    onMouseEnter={(e) => {
+                      (
+                        e.currentTarget as HTMLAnchorElement
+                      ).style.borderColor =
+                        "rgba(255,255,255,0.5)";
+                      (
+                        e.currentTarget as HTMLAnchorElement
+                      ).style.color = "#f0f0f0";
+                    }}
+                    onMouseLeave={(e) => {
+                      (
+                        e.currentTarget as HTMLAnchorElement
+                      ).style.borderColor =
+                        "rgba(255,255,255,0.2)";
+                      (
+                        e.currentTarget as HTMLAnchorElement
+                      ).style.color = "rgba(240,240,240,0.75)";
+                    }}
+                  >
+                    {icon}
+                    {label}
+                  </a>
+                ))}
+              </div>
             </div>
-          </div>
 
-          {/* Portrait photo slot */}
-          <div
-            className="hidden md:self-stretch md:block flex-shrink-0 overflow-hidden"
-            style={{ width: "200px" }}
-          >
-            <img src="/front.jpg" alt="Sam Chen" className="w-full h-full object-cover object-top" />
-          </div>
-
+            {/* Portrait photo slot */}
+            <div
+              className="hidden md:self-stretch md:block flex-shrink-0 overflow-hidden"
+              style={{ width: "200px" }}
+            >
+              <img
+                src={"/front.jpg"}
+                alt="Sam Chen"
+                className="w-full h-full object-cover object-top"
+              />
+            </div>
           </div>
         </div>
       </section>
@@ -897,7 +933,7 @@ export default function App() {
             {projects.map((p) => (
               <button
                 key={p.id}
-                onClick={() => setSelectedProject(p)}
+                onClick={() => { setSelectedProject(p); window.scrollTo(0, 0); }}
                 className="text-left p-6 transition-colors group relative"
                 style={{ background: "#080808" }}
                 onMouseEnter={(e) =>
@@ -1058,7 +1094,9 @@ export default function App() {
                 className="text-sm leading-relaxed mb-8 max-w-md"
                 style={{ color: "rgba(240,240,240,0.78)" }}
               >
-                Actively seeking opportunities in sensor engineering, 3D vision engineering, and data analysis for physical AI/robotics. Based in
+                Actively seeking opportunities in sensor
+                engineering, 3D vision engineering, and data
+                analysis for physical AI/robotics. Based in
                 Stanford, CA with roots in Taipei, Taiwan.
               </p>
               <div className="space-y-3">
@@ -1075,11 +1113,12 @@ export default function App() {
                   },
                   {
                     href: "https://www.linkedin.com/in/shuan-lin-chen-6b1401260/",
-                    label: "linkedin.com/in/shuan-lin-chen-6b1401260",
+                    label:
+                      "linkedin.com/in/shuan-lin-chen-6b1401260",
                     icon: <Linkedin size={11} />,
                   },
                   {
-                    href: "https://github.com",
+                    href: "https://github.com/samshuanlin",
                     label: "github.com/samshuanlin",
                     icon: <Github size={11} />,
                   },
