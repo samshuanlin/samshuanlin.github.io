@@ -377,17 +377,15 @@ function ProjectPage({
 
         {/* Hero photo slot */}
         <div
-          className="w-full mb-12 overflow-hidden"
-          style={{
-            height: "340px",
-            background: "rgba(255,255,255,0.02)",
-          }}
+          className="w-full mb-12"
+          style={{ background: "rgba(255,255,255,0.02)" }}
         >
           {project.photos?.[0] ? (
             <img
               src={project.photos[0].src}
               alt={project.photos[0].alt}
-              className="w-full h-full object-cover"
+              className="w-full"
+              style={{ display: "block" }}
             />
           ) : (
             <div
@@ -469,15 +467,12 @@ function ProjectPage({
                   className={`grid gap-2 ${project.photos.length - 1 >= 3 ? "grid-cols-3" : project.photos.length - 1 === 2 ? "grid-cols-2" : "grid-cols-1"}`}
                 >
                   {project.photos.slice(1).map((photo, i) => (
-                    <div
-                      key={i}
-                      className="overflow-hidden"
-                      style={{ height: "200px" }}
-                    >
+                    <div key={i} className="overflow-hidden">
                       <img
                         src={photo.src}
                         alt={photo.alt}
-                        className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                        className="w-full transition-transform duration-500 hover:scale-105"
+                        style={{ display: "block" }}
                       />
                     </div>
                   ))}
@@ -650,8 +645,8 @@ export default function App() {
         />
 
         <div className="max-w-6xl mx-auto px-6 w-full py-28 relative z-10">
-          <div className="grid md:grid-cols-[1fr_auto] gap-12 items-stretch">
-            <div className="">
+          <div className="grid md:grid-cols-[minmax(0,620px)_auto] gap-8 items-stretch">
+            <div className="min-w-0">
               <div
                 className="font-mono text-[11px] mb-6 flex items-center gap-2"
                 style={{ color: "rgba(240,240,240,0.65)" }}
@@ -806,13 +801,14 @@ export default function App() {
 
             {/* Portrait photo slot */}
             <div
-              className="hidden md:self-stretch md:block flex-shrink-0 overflow-hidden"
-              style={{ width: "200px" }}
+              className="hidden md:block flex-shrink-0"
+              style={{ width: "320px" }}
             >
               <img
                 src={imgFront}
                 alt="Sam Chen"
-                className="w-full h-full object-cover object-top"
+                className="w-full"
+                style={{ display: "block" }}
               />
             </div>
           </div>
