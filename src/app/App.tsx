@@ -178,8 +178,8 @@ const projects: Project[] = [
     ],
     featured: true,
     photos: [
-      { src: "IMG_6360.jpg", alt: "Camera trap prototype field deployment against other commerical systems" },
-      { src: "IMG_4660.jpg", alt: "Camera trap field deployment scene" },
+      { src: "/IMG_6360.jpg", alt: "Camera trap prototype field deployment against other commerical systems" },
+      { src: "/IMG_4660.jpg", alt: "Camera trap field deployment scene" },
     ],
     specs: [
       { label: "Started", value: "Apr 2025" },
@@ -206,10 +206,10 @@ const projects: Project[] = [
     featured: false,
     link: { label: "View our Website", url: "https://escaperoom.stanford.edu/photos" },
     photos: [
-      { src: "KC_04806.JPG", alt: "Escape room overview" },
-      { src: "KC_04752.JPG", alt: "Escape room puzzle - 1" },
-      { src: "KC_04778.JPG", alt: "Escape room video game" },
-      { src: "KC_04802.JPG", alt: "Escape room puzzle - 2" },
+      { src: "/KC_04806.JPG", alt: "Escape room overview" },
+      { src: "/KC_04752.JPG", alt: "Escape room puzzle - 1" },
+      { src: "/KC_04778.JPG", alt: "Escape room video game" },
+      { src: "/KC_04802.JPG", alt: "Escape room puzzle - 2" },
     ],
     specs: [
       { label: "Started", value: "Aug 2025" },
@@ -232,8 +232,8 @@ const projects: Project[] = [
     ],
     featured: false,
     photos: [
-      { src: "IMG_3959.jpeg", alt: "RGB clock PCB" },
-      { src: "IMG_3961.jpeg", alt: "RGB clock assembled" },
+      { src: "/IMG_3959.jpeg", alt: "RGB clock PCB" },
+      { src: "/IMG_3961.jpeg", alt: "RGB clock assembled" },
     ],
     specs: [
       { label: "Started", value: "Sept 2024" },
@@ -256,8 +256,8 @@ const projects: Project[] = [
     ],
     featured: false,
     photos: [
-      { src: "Thicksquare.jpg", alt: "mmWave radar setup" },
-      { src: "thickwall_tracking.png", alt: "Through-wall detection output" },
+      { src: "/Thicksquare.jpg", alt: "mmWave radar setup" },
+      { src: "/thickwall_tracking.png", alt: "Through-wall detection output" },
     ],
     specs: [
       { label: "Started", value: "Apr 2026" },
@@ -878,7 +878,7 @@ export default function App() {
             className="hidden md:self-stretch md:block flex-shrink-0 overflow-hidden"
             style={{ width: "200px" }}
           >
-            <img src="front.jpg" alt="Sam Chen" className="w-full h-full object-cover object-top" />
+            <img src="/front.jpg" alt="Sam Chen" className="w-full h-full object-cover object-top" />
           </div>
 
           </div>
